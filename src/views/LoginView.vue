@@ -42,10 +42,6 @@ export default {
         .then((res) => {
           document.cookie = `groenToken=${res.data.token};expires=${new Date(res.data.expired)}`
           this.$router.push('/admin/products')
-          console.log(res.data)
-        })
-        .catch((err) => {
-          console.log(err.data)
         })
     }
   }

@@ -30,9 +30,6 @@ export default {
         .then((res) => {
           this.allProducts = res.data.products
         })
-        .catch((err) => {
-          console.log(err)
-        })
     }
   },
   mounted () {
