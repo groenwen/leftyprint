@@ -20,20 +20,30 @@
         <td>{{item.origin_price}}</td>
         <td>{{item.price}}</td>
         <td class="text-end">
-          <button type="button" class="btn btn-sm btn-outline-primary">編輯</button>&nbsp;
+          <button type="button" class="btn btn-sm btn-outline-primary" :id="item.id">編輯</button>&nbsp;
           <button type="button" class="btn btn-sm btn-outline-danger">刪除</button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
+  <button type="button" class="btn btn-primary" @click="openModal">
+  Launch demo modal
+</button>
+  <productModal :inside="outside" ref="callModal"></productModal>
 </template>
-<script>
+<script type="module">
+import productModal from '../../components/ProductModal.vue'
+
 export default {
   data () {
     return {
-      allProducts: []
+      allProducts: [],
+      outside: '外層 data'
     }
+  },
+  components: {
+    productModal
   },
   methods: {
     getProducts () {
@@ -42,6 +52,9 @@ export default {
         .then((res) => {
           this.allProducts = res.data.products
         })
+    },
+    openModal () {
+      this.$refs.callModal.innerOpenModal()
     }
   },
   mounted () {
