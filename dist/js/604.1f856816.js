@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkleftyprint"]=self["webpackChunkleftyprint"]||[]).push([[604],{604:function(t,n,e){e.r(n),e.d(n,{default:function(){return s}});var r=e(6252);const l=(0,r._)("div",{class:"font-bold text-white bg-neutral-800"},"Hello World",-1),u=[l];function i(t,n){return(0,r.wg)(),(0,r.iD)("div",null,u)}var c=e(3744);const f={},o=(0,c.Z)(f,[["render",i]]);var s=o}}]);
+//# sourceMappingURL=604.1f856816.js.map
