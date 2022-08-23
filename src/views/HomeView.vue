@@ -5,6 +5,7 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/admin">後台</router-link>
     </nav>
+    <button type="button" class="btn btn-secondary">Secondary</button>
     <router-view />
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
   </div>
