@@ -1,36 +1,42 @@
 <template>
   <div class="container">
     <div class="text-end">
-      <button type="button" class="btn btn-sm btn-primary">新增</button>
+        <button type="button" class="btn btn-dark" @click="openModal('new')">新增</button>
     </div>
     <table class="table">
       <thead>
         <tr>
-        <td>Category</td>
-        <td>Title</td>
-        <td>Origin_price</td>
-        <td>Price</td>
-        <td></td>
-      </tr>
+          <td>Category</td>
+          <td></td>
+          <td>Title</td>
+          <td>Description</td>
+          <td>Content</td>
+          <td>Origin_price</td>
+          <td>Price</td>
+          <td>Unit</td>
+          <td></td>
+        </tr>
       </thead>
       <tbody>
-        <tr v-for="item in allProducts" :key="item.id">
-        <td>{{item.category}}</td>
-        <td>{{item.title}}</td>
-        <td>{{item.origin_price}}</td>
-        <td>{{item.price}}</td>
+        <tr v-for="item in allProducts" :key="item.id" >
+        <td><span class="badge text-bg-secondary">{{item.category}}</span></td>
+        <td><img :src="item.imageUrl" width="100"></td>
+        <td>{{item.title}} <br> <span class="small text-secondary">{{item.id}}</span></td>
+        <td>{{item.description}}</td>
+        <td>{{item.content}}</td>
+        <td>$ {{item.origin_price}}</td>
+        <td>$ {{item.price}}</td>
+        <td>{{item.unit}}</td>
         <td class="text-end">
-          <button type="button" class="btn btn-sm btn-outline-primary" :id="item.id">編輯</button>&nbsp;
+          <button type="button" class="btn btn-sm btn-outline-dark" :id="item.id" @click="openModal('edit', item)">編輯</button>&nbsp;
           <button type="button" class="btn btn-sm btn-outline-danger">刪除</button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-  <button type="button" class="btn btn-primary" @click="openModal">
-  Launch demo modal
-</button>
-  <productModal :inside="outside" ref="callModal"></productModal>
+
+  <productModal :isNew="isNew" :productData="productData" ref="callModal"></productModal>
 </template>
 <script type="module">
 import productModal from '../../components/ProductModal.vue'
@@ -39,7 +45,8 @@ export default {
   data () {
     return {
       allProducts: [],
-      outside: '外層 data'
+      isNew: '',
+      productData: {}
     }
   },
   components: {
@@ -51,10 +58,29 @@ export default {
       this.$http.get(url)
         .then((res) => {
           this.allProducts = res.data.products
+          console.log(this.allProducts)
+        })
+        .catch((err) => {
+          console.log(err.response.data.message)
         })
     },
-    openModal () {
-      this.$refs.callModal.innerOpenModal()
+    addProduct () {
+
+    },
+    editProduct () {
+
+    },
+    openModal (status, product) {
+      // 新增 編輯 共用 modal
+      if (status === 'new') {
+        this.isNew = 'new'
+        this.productData = ''
+        this.$refs.callModal.innerOpenModal()
+      } else if (status === 'edit') {
+        this.isNew = 'edit'
+        this.productData = product
+        this.$refs.callModal.innerOpenModal()
+      }
     }
   },
   mounted () {

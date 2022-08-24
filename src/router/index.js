@@ -8,6 +8,7 @@ const routes = [
     children: [
       {
         path: '',
+        name: 'index',
         component: () => import('../views/IndexView.vue')
       },
       {
@@ -22,6 +23,7 @@ const routes = [
   },
   {
     path: '/admin',
+    name: 'admin',
     component: () => import('../views/Dashboard/DashboardView.vue'),
     children: [
       {
