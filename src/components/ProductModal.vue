@@ -34,16 +34,22 @@
                 <input type="text" class="form-control" id="title" v-model="innProduct.title" placeholder="Example input placeholder">
               </div>
               <div class="mb-3">
-                <label for="num" class="form-label">num</label>
-                <input type="text" class="form-control" id="num" v-model.number="innProduct.num" placeholder="Example input placeholder">
-              </div>
-              <div class="mb-3">
                 <label for="unit" class="form-label">unit</label>
                 <input type="text" class="form-control" id="unit" v-model="innProduct.unit" placeholder="Example input placeholder">
               </div>
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label for="width" class="form-label">寬(mm)</label>
+                  <input type="text" class="form-control" id="width" v-model="innProduct.content.width" placeholder="Example input placeholder">
+                </div>
+                <div class="col-6">
+                  <label for="height" class="form-label">高(mm)</label>
+                  <input type="text" class="form-control" id="height" v-model="innProduct.content.height" placeholder="Example input placeholder">
+                </div>
+              </div>
               <div class="mb-3">
-                <label for="content" class="form-label">content</label>
-                <input type="text" class="form-control" id="content" v-model="innProduct.content" placeholder="Example input placeholder">
+                <label for="qty" class="form-label">數量</label>
+                <input type="text" class="form-control" id="qty" v-model="innProduct.content.qty" placeholder="Example input placeholder">
               </div>
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
@@ -51,7 +57,7 @@
               </div>
               <div class="mb-3">
                 <label for="origin_price" class="form-label">origin_price</label>
-                <input type="text" class="form-control" id="origin_price" v-model.number="innProduct.origin_price" placeholder="Example input placeholder">
+                <input type="number" class="form-control" id="origin_price" v-model.number="innProduct.origin_price" placeholder="Example input placeholder">
               </div>
               <div class="mb-3">
                 <label for="price" class="form-label">price</label>
@@ -80,7 +86,14 @@ export default {
     return {
       myModal: '',
       innIsNew: '',
-      innProduct: {},
+      innProduct: {
+        content: {
+          qty: 0,
+          width: 0,
+          height: 0
+        },
+        imagesUrl: []
+      },
       addImage: ''
     }
   },

@@ -11,8 +11,9 @@
           <td>Category</td>
           <!-- <td></td> -->
           <td>Title</td>
+          <td>尺寸</td>
+          <td>數量</td>
           <td>Description</td>
-          <td>Content</td>
           <td>Origin_price</td>
           <td>Price</td>
           <td>Unit</td>
@@ -29,8 +30,9 @@
             {{ item.title }} <br />
             <span class="small text-secondary">{{ item.id }}</span>
           </td>
+          <td>{{ item.content.width }} mm X {{ item.content.height }} mm</td>
+          <td>{{ item.content.qty }}</td>
           <td>{{ item.description }}</td>
-          <td>{{ item.content }}</td>
           <td>$ {{ item.origin_price }}</td>
           <td>$ {{ item.price }}</td>
           <td>{{ item.unit }}</td>
@@ -126,7 +128,14 @@ export default {
     // 開啟 modal
     openModal (active, item) {
       if (active === 'new') {
-        this.product = { imagesUrl: [] }
+        this.product = {
+          content: {
+            qty: 0,
+            width: 0,
+            height: 0
+          },
+          imagesUrl: []
+        }
         this.$refs.callModal.showModal()
         this.isNew = true
       } else if (active === 'edit') {
