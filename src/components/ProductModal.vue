@@ -34,22 +34,36 @@
                 <input type="text" class="form-control" id="title" v-model="innProduct.title" placeholder="Example input placeholder">
               </div>
               <div class="mb-3">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" v-model="innProduct.content.side" id="single" value="單面">
+                  <label class="form-check-label" for="single">單面</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" v-model="innProduct.content.side" id="double" value="雙面">
+                  <label class="form-check-label" for="double">雙面</label>
+                </div>
+              </div>
+              <div class="mb-3">
                 <label for="unit" class="form-label">unit</label>
                 <input type="text" class="form-control" id="unit" v-model="innProduct.unit" placeholder="Example input placeholder">
               </div>
               <div class="row mb-3">
                 <div class="col-6">
                   <label for="width" class="form-label">寬(mm)</label>
-                  <input type="text" class="form-control" id="width" v-model="innProduct.content.width" placeholder="Example input placeholder">
+                  <input type="number" class="form-control" id="width" v-model.number="innProduct.content.width" placeholder="Example input placeholder">
                 </div>
                 <div class="col-6">
                   <label for="height" class="form-label">高(mm)</label>
-                  <input type="text" class="form-control" id="height" v-model="innProduct.content.height" placeholder="Example input placeholder">
+                  <input type="number" class="form-control" id="height" v-model.number="innProduct.content.height" placeholder="Example input placeholder">
                 </div>
               </div>
               <div class="mb-3">
+                <label for="material" class="form-label">材質</label>
+                <input type="text" class="form-control" id="material" v-model="innProduct.content.material" placeholder="Example input placeholder">
+              </div>
+              <div class="mb-3">
                 <label for="qty" class="form-label">數量</label>
-                <input type="text" class="form-control" id="qty" v-model="innProduct.content.qty" placeholder="Example input placeholder">
+                <input type="number" class="form-control" id="qty" v-model.number="innProduct.content.qty" placeholder="Example input placeholder">
               </div>
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
@@ -64,8 +78,15 @@
                 <input type="text" class="form-control" id="price" v-model.number="innProduct.price" placeholder="Example input placeholder">
               </div>
               <div class="mb-3">
-                <label for="is_enabled" class="form-label">is_enabled</label>
-                <input type="text" class="form-control" id="is_enabled" v-model.number="innProduct.is_enabled" placeholder="Example input placeholder">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="is_enabled" v-model="innProduct.is_enabled" :checked="innProduct.is_enabled === 1">
+                  <label class="form-check-label" for="is_enabled" v-if="innProduct.is_enabled === 1">顯示</label>
+                  <label class="form-check-label" for="is_enabled" v-else>隱藏</label>
+                </div>
+              </div>
+              <div class="mb-3" v-if="!innIsNew">
+                <label for="num" class="form-label">排序</label>
+                <input type="text" class="form-control" id="num" v-model.number="innProduct.num" placeholder="Example input placeholder">
               </div>
             </div>
           </div>
@@ -88,22 +109,31 @@ export default {
       innIsNew: '',
       innProduct: {
         content: {
-          qty: 0,
-          width: 0,
-          height: 0
+          width: 90,
+          height: 54,
+          qty: 100,
+          side: 'single',
+          material: '一級卡'
         },
         imagesUrl: []
       },
       addImage: ''
     }
   },
-  props: ['isNew', 'productItem'],
+  props: {
+    isNew: {
+      type: Boolean
+    },
+    productItem: {
+      type: Object
+    }
+  },
   watch: {
     isNew () {
       this.innIsNew = this.isNew
     },
     productItem () {
-      this.innProduct = this.productItem
+      this.innProduct = JSON.parse(JSON.stringify(this.productItem))
     }
   },
   methods: {
@@ -120,8 +150,8 @@ export default {
   mounted () {
     this.myModal = new Modal(this.$refs.productModal)
     this.innIsNew = this.isNew
-    this.innProduct = this.productItem
-    console.log('hello', this.productItem)
+    this.innProduct = JSON.parse(JSON.stringify(this.productItem))
+    console.log('hello', this.productItem.content)
   }
 }
 </script>
