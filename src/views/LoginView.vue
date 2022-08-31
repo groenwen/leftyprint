@@ -44,7 +44,7 @@ export default {
           this.$router.push('/admin/products')
         })
         .catch((err) => {
-          console.log(err.data.message)
+          alert(err.response.data.message)
         })
     }
   }
