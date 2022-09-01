@@ -4,6 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/products">所有產品</router-link> |
+      <router-link to="/carts">Cart</router-link> |
       <router-link to="/admin">後台</router-link>
     </nav>
     <router-view />
