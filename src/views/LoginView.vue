@@ -5,24 +5,19 @@
     </nav>
 
     <p>Login</p>
-    <form>
+    <v-form v-slot="{ errors }" @submit="login">
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" v-model="user.username" />
-        <div id="emailHelp" class="form-text">
-          We'll never share your email with anyone else.
-        </div>
+        <label for="email" class="form-label">Email address</label>
+        <v-field name="email" id="email" type="email" rules="required|email" class="form-control" :class="{ 'is-invalid':errors['email'] }" v-model="user.username" />
+        <error-message name="email" class="invalid-feedback" />
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" v-model="user.password" />
+        <label for="password" class="form-label">密碼</label>
+        <v-field name="密碼" id="password" type="password" rules="required" class="form-control" :class="{ 'is-invalid':errors['密碼'] }" v-model="user.password" />
+        <error-message name="密碼" class="invalid-feedback" />
       </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-      </div>
-      <button class="btn btn-primary" @click.prevent="login">Submit</button>
-    </form>
+      <button class="btn btn-primary">登入</button>
+    </v-form>
   </div>
 </template>
 <script>

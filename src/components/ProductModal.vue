@@ -78,8 +78,8 @@
                 <input type="text" class="form-control" id="price" v-model.number="innProduct.price" placeholder="Example input placeholder">
               </div>
               <div class="mb-3">
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="is_enabled" v-model="innProduct.is_enabled" :checked="innProduct.is_enabled === 1">
+                <div class="form-check form-switch" @click="innProduct.is_enabled ? innProduct.is_enabled = 0 : innProduct.is_enabled = 1">
+                  <input class="form-check-input" type="checkbox" role="switch" id="is_enabled" :checked="innProduct.is_enabled === 1">
                   <label class="form-check-label" for="is_enabled" v-if="innProduct.is_enabled === 1">顯示</label>
                   <label class="form-check-label" for="is_enabled" v-else>隱藏</label>
                 </div>

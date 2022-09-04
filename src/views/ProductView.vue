@@ -1,7 +1,17 @@
 <template>
-  <div>
-    <p>{{ currProduct.title }}</p>
-    {{ currProduct.description }}
+  <div class="container">
+    <div class="row">
+      <div class="col d-flex flex-column justify-content-end">
+        <h1>{{ currProduct.title }}</h1>
+        <p>{{ currProduct.description }}</p>
+      </div>
+      <div class="col-4">
+        <div class="product-img" :style="{backgroundImage: `url(${currProduct.imageUrl})`}">
+
+        </div>
+      </div>
+    </div>
+
     <hr />
     <div class="mb-3">
       <p>尺寸 (size)</p>
@@ -33,57 +43,60 @@
         >{{ item }}</a
       >
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>size</th>
-          <th>side</th>
-          <th>材質</th>
-          <th>數量</th>
-          <th>origin_price</th>
-          <th>Price</th>
-          <th>ID</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in sortProducts" :key="item.id" :class="{'bg-light':this.currProduct.id === item.id}">
-          <th>{{ item.content.width }}x{{ item.content.height }}</th>
-          <td>{{ item.content.side }}</td>
-          <td>{{ item.content.material }}</td>
-          <td>{{ item.content.qty }}</td>
-          <td>$ {{ item.origin_price }}</td>
-          <td><a href="#" @click.prevent="getProduct('all', item)">$ {{ item.price }}</a></td>
-          <td>{{ item.id }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="position-relative" style="min-height: 100px">
+      <v-loading :active="isLoading" :is-full-page="false" v-if="isLoading"></v-loading>
+      <table class="table" v-else>
+        <thead>
+          <tr>
+            <th>size</th>
+            <th>side</th>
+            <th>材質</th>
+            <th>數量</th>
+            <th>origin_price</th>
+            <th>Price</th>
+            <th>ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in sortProducts" :key="item.id" :class="{'bg-light':this.currProduct.id === item.id}">
+            <th>{{ item.content.width }}x{{ item.content.height }}</th>
+            <td>{{ item.content.side }}</td>
+            <td>{{ item.content.material }}</td>
+            <td>{{ item.content.qty }}</td>
+            <td>$ {{ item.origin_price }}</td>
+            <td><a href="#" @click.prevent="getProduct('all', item)">$ {{ item.price }}</a></td>
+            <td>{{ item.id }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <p>NT$ {{currProduct.price}}</p>
     <a href="#" class="btn btn-secondary" @click.prevent="addToCart()">Add to cart</a>
   </div>
 </template>
+<style lang="scss">
+.product-img {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+}
+</style>
 <script>
 export default {
   data () {
     return {
-      text: '123',
+      isLoading: true,
       currProduct: {},
       currProducts: [],
       sortProducts: [],
       currSize: '',
+      carts: [],
       sizeList: [],
       sideList: [],
       material: []
     }
   },
-  // watch: {
-  //   currProduct: {
-  //     handler (newVal, oldVal) {
-  //       this.sortProduct()
-  //       console.log('hello')
-  //     },
-  //     deep: true
-  //   }
-  // },
   methods: {
     // 1.顯示所有選項 size side
     // 2. 所有產品 products > 所有 title product
@@ -118,6 +131,7 @@ export default {
             console.log(this.currProduct)
           }
           this.sortProduct(str)
+          this.isLoading = false
         })
         .catch((err) => {
           console.log(err)
@@ -161,7 +175,7 @@ export default {
           const currContent = this.currProduct.content
           return iContent.width === currContent.width && iContent.height === currContent.height && iContent.side === currContent.side
         })
-        // 由數量小到大排序
+        // 數量排序小到大排序
         this.sortProducts.sort((a, b) => {
           return a.content.qty - b.content.qty
         })

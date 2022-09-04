@@ -1,62 +1,64 @@
 <template>
-    <div>
-        <p>所有產品 {{text}}</p>
-        <table class="table">
-      <thead>
-        <tr>
-          <td>No</td>
-          <td>Category</td>
-          <!-- <td></td> -->
-          <td>Title</td>
-          <td>單/雙面</td>
-          <td>尺寸</td>
-          <td>材質</td>
-          <td>數量</td>
-          <td>Description</td>
-          <td>原價 (OP)</td>
-          <td>特價</td>
-          <td></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in allProducts" :key="item.id">
-          <td>{{ item.num }}</td>
-          <td>
-            <span class="badge text-bg-secondary">{{ item.category }}</span>
-          </td>
-          <!-- <td><img :src="item.imageUrl" width="100" /></td> -->
-          <td>
-            {{ item.title }} <br />
-            <span class="small text-secondary">{{ item.id }}</span>
-          </td>
-          <td>{{ item.content.side }}</td>
-          <td>{{ item.content.width }} mm X {{ item.content.height }} mm</td>
-          <td>{{ item.content.material }}</td>
-          <td>{{ item.content.qty }} {{ item.unit }}</td>
-          <td>{{ item.description }}</td>
-          <td>$ {{ item.origin_price }}</td>
-          <td>$ {{ item.price }}</td>
-          <td><router-link :to="`/product/${item.id}`">單一產品</router-link></td>
-        </tr>
-      </tbody>
-    </table>
+  <v-loading :active="isLoading" ></v-loading>
+  <div>
+    <h1>所有產品</h1>
+    <div class="row">
+      <div class="col-4" v-for="item in products" :key="item.id">
+        <div class="card">
+          <div class="card-img" :style="{backgroundImage: `url(${item.imageUrl})`}">
+
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <p class="card-text">{{ item.description }}</p>
+            <router-link :to="`/product/${item.id}`" class="btn btn-primary">Go somewhere</router-link>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
+<style lang="scss">
+.card-img {
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+</style>
 <script>
 export default {
   data () {
     return {
-      text: '123',
-      allProducts: []
+      isLoading: false,
+      allProducts: [],
+      products: []
     }
   },
   methods: {
-    getProducts (page = 1) {
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?page=${page}`
+    getProducts () {
+      this.isLoading = true
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`
       this.$http.get(url)
         .then((res) => {
+          this.isLoading = false
           this.allProducts = res.data.products
-          console.log(res.data.products)
+          // 儲存所有 title
+          let title = []
+          this.allProducts.forEach(item => {
+            title.push(item.title)
+          })
+          // 所有 title 唯一值
+          title = title.filter((item, index) => title.indexOf(item) === index)
+          console.log(this.allProducts)
+          // 取第一個產品的入口
+          title.forEach((item1, index) => {
+            const product = this.allProducts.find(item2 => item1 === item2.title)
+            this.products.push(product)
+          })
+
+          console.log(this.products)
         })
         .catch((err) => {
           console.log(err.data.message)

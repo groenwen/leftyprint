@@ -31,6 +31,7 @@ export default {
         this.$http.post(url)
           .then((res) => {
             // 驗證成功
+            this.$router.push('/admin/products')
           })
           .catch((err) => {
             // 驗證有誤 顯示錯誤訊息 回到登入頁面

@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <v-loading :active="isLoading" v-if="isLoading"></v-loading>
+  <div class="container" v-else>
     <div class="text-end">
       <button type="button" class="btn btn-dark" @click="openModal('new')">
         新增
@@ -19,6 +20,7 @@
           <td>Description</td>
           <td>原價 (OP)</td>
           <td>特價</td>
+          <td>顯示</td>
           <td></td>
         </tr>
       </thead>
@@ -26,10 +28,11 @@
         <tr v-for="item in allProducts" :key="item.id">
           <td>{{ item.num }}</td>
           <td>
-            <span class="badge text-bg-secondary">{{ item.category }}</span>
+            <img :src="item.imageUrl" height="100" alt="">
           </td>
           <!-- <td><img :src="item.imageUrl" width="100" /></td> -->
           <td>
+            <span class="badge text-bg-secondary">{{ item.category }}</span><br />
             {{ item.title }} <br />
             <span class="small text-secondary">{{ item.id }}</span>
           </td>
@@ -40,6 +43,13 @@
           <td>{{ item.description }}</td>
           <td>$ {{ item.origin_price }}</td>
           <td>$ {{ item.price }}</td>
+          <td>
+            <div class="form-check form-switch" @click="item.is_enabled ? item.is_enabled = 0 : item.is_enabled = 1; updateProduct(item)">
+              <input class="form-check-input" type="checkbox" role="switch" id="is_enabled" :checked="item.is_enabled === 1">
+              <label class="form-check-label" for="is_enabled" v-if="item.is_enabled === 1">顯示</label>
+              <label class="form-check-label" for="is_enabled" v-else>隱藏</label>
+            </div>
+          </td>
           <td class="text-end">
             <button
               type="button"
@@ -75,7 +85,8 @@ import delProductModal from '../../components/DelProductModal.vue'
 export default {
   data () {
     return {
-      isNew: true,
+      isLoading: true,
+      isNew: false,
       allProducts: [],
       product: {
         content: {
@@ -99,6 +110,7 @@ export default {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`
       this.$http.get(url)
         .then((res) => {
+          this.isLoading = false
           // API 資料存入 allProducts
           this.allProducts = res.data.products
           this.pagination = res.data.pagination
@@ -106,6 +118,9 @@ export default {
           console.log(typeof this.allProducts[0].content)
         })
         .catch((err) => {
+          this.isLoading = false
+          alert(err.response.data.message)
+          this.$router.push('/login')
           console.log(err.response.data.message)
         })
     },
@@ -121,6 +136,7 @@ export default {
       this.$http[http](url, { data })
         .then((res) => {
           console.log(res)
+          alert(res.data.message)
           this.hideModal()
           this.getProducts()
         })
