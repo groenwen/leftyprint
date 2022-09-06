@@ -11,7 +11,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ item.title }}</h5>
             <p class="card-text">{{ item.description }}</p>
-            <router-link :to="`/product/${item.id}`" class="btn btn-primary">Go somewhere</router-link>
+            <router-link :to="`/product2/${item.id}`" class="btn btn-primary">Go somewhere</router-link>
           </div>
         </div>
       </div>
@@ -44,15 +44,15 @@ export default {
         .then((res) => {
           this.isLoading = false
           this.allProducts = res.data.products
-          // 儲存所有 title
+          // 取出所有產品的 title
           let title = []
           this.allProducts.forEach(item => {
             title.push(item.title)
           })
-          // 所有 title 唯一值
+          // 取出不重複的 title
           title = title.filter((item, index) => title.indexOf(item) === index)
           console.log(this.allProducts)
-          // 取第一個產品的入口
+          // 將第一個產品 設為產品入口
           title.forEach((item1, index) => {
             const product = this.allProducts.find(item2 => item1 === item2.title)
             this.products.push(product)
