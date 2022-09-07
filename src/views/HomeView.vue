@@ -22,7 +22,7 @@ export default {
   watch: {
     carts: {
       handler () {
-        console.log('hello')
+        console.log('watch')
         // this.getCarts()
       },
       deep: true
@@ -36,13 +36,12 @@ export default {
           this.carts = res.data.data.carts
         })
         .catch((err) => {
-          console.log(err)
+          alert(err.response.data.message)
         })
     }
   },
   mounted () {
     this.getCarts()
-    console.log('hello')
   }
 }
 </script>

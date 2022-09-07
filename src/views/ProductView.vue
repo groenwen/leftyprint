@@ -6,7 +6,7 @@
         <p>{{ currProd.description }}</p>
       </div>
       <div class="col-4">
-        <!-- <div class="product-img" :style="{backgroundImage: `url(${currProd.imageUrl})`}">
+        <!-- <div class="currProduct-img" :style="{backgroundImage: `url(${currProd.imageUrl})`}">
 
         </div> -->
       </div>
@@ -17,23 +17,21 @@
       <p>尺寸 (size)</p>
       <a
         href="#"
-        @click.prevent="getProds('size', item)"
         v-for="(item, index) in sizeList"
         :key="`size${index}`"
+        @click.prevent="checkSizeAndSide('size', item)"
         class="btn btn-sm rounded-pill me-2"
-        :class="[
-          this.currSize === item ? 'btn-secondary' : 'btn-outline-secondary'
-        ]"
-        >{{ item }}</a
-      >
+        :class="[this.currSize === item ? 'btn-secondary' : 'btn-outline-secondary']"
+        >{{ item }}
+      </a>
     </div>
     <div class="mb-3">
       <p>單/雙面 (side)</p>
       <a
         href="#"
-        @click.prevent="getProds('side',item)"
         v-for="(item, index) in sideList"
         :key="`side${index}`"
+        @click.prevent="checkSizeAndSide('side', item)"
         class="btn btn-sm rounded-pill me-2"
         :class="[
           this.currProd.content.side === item
@@ -44,8 +42,8 @@
       >
     </div>
     <div class="position-relative" style="min-height: 100px">
-      <v-loading :active="isLoading" :is-full-page="false" v-if="isLoading"></v-loading>
-      <table class="table" v-else>
+      <v-loading :active="isLoading" ></v-loading>
+      <table class="table">
         <thead>
           <tr>
             <th>size</th>
@@ -64,7 +62,6 @@
             <td>{{ item.content.material }}</td>
             <td>{{ item.content.qty }}</td>
             <td>$ {{ item.origin_price }}</td>
-            <td><a href="#" @click.prevent="getProds('all', item)">$ {{ item.price }}</a></td>
             <td><router-link :to="`/product/${item.id}`">$ {{ item.price }}</router-link></td>
             <td>{{ item.id }}</td>
           </tr>
@@ -76,7 +73,7 @@
   </div>
 </template>
 <style lang="scss">
-.product-img {
+.currProduct-img {
   width: 100%;
   height: 300px;
   background-size: cover;
@@ -88,14 +85,15 @@ export default {
   data () {
     return {
       isLoading: true,
+      VUE_APP: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}`,
       currProd: {},
       currProds: [],
       sortProds: [],
       currSize: '',
+      currSide: '',
       carts: [],
       sizeList: [],
-      sideList: [],
-      material: []
+      sideList: []
     }
   },
   computed: {
@@ -106,66 +104,94 @@ export default {
   },
   watch: {
     prodId () {
-      console.log('watch', this.prodId)
-      this.iniPage()
+      console.log('watch')
+      this.getProds()
     }
   },
   methods: {
     // 1.顯示所有選項 size side
-    // 2. 所有產品 products > 所有 title product
-    // 3. 依篩選條件 顯示產品 sortProduct
+    // 2. 所有產品 currProducts > 所有 title currProduct
+    // 3. 依篩選條件 顯示產品 sortcurrProduct
     // 4. 切換條件時 更新產品列表
     // 所有 size、篩選過的 size、當前 size
-    getProds (str, val) {
+    // canva https://developer.mozilla.org/zh-TW/docs/Web/API/HTMLCanvasElement/toDataURL
+    getProds () {
       // 取得所有產品
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`
+      const url = `${this.VUE_APP}/products/all`
       this.$http
         .get(url)
         .then((res) => {
-          // 所有產品 ex: 名片、明信片...
-          const products = res.data.products
-          // 篩選出該產品 ex: 名片
-          this.currProds = products.filter(
-            (item) => item.title === this.currProd.title
-          )
-          // 顯示該產品所有選項 size side
-          this.showSizeSide()
-          // 依條件顯示產品 active
-          if (str === 'size') {
-            const size = val.split('x')
-            this.currProd.content.width = Number(size[0])
-            this.currProd.content.height = Number(size[1])
-            this.currSize = `${size[0]}x${size[1]}`
-            console.log(this.currProd)
-          } else if (str === 'side') {
-            this.currProd.content.side = val
-          } else if (str === 'all') {
-            // 傳整個 item
-            this.currProd = { ...val }
-            console.log(this.currProd)
-          }
-          this.sortProduct(str)
+          // [a, b, c...]
+          const allProds = res.data.products
+          // obj
+          this.currProd = allProds.find((item) => item.id === this.prodId)
+          this.currSize = `${this.currProd.content.width}x${this.currProd.content.height}`
+          this.currSide = this.currProd.content.side
+          // [a, a, a...]
+          this.currProds = allProds.filter((item) => item.title === this.currProd.title)
+          // 列出 size, side
+          this.showSizeAndSide()
+
+          // 篩選
+          this.getSortProds()
+
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          alert(err.response.data.message)
         })
     },
-    // 顯示產品的尺寸、單雙面
-    showSizeSide () {
-      const allSize = []
-      const allSide = []
+    checkSizeAndSide (status, val) {
+      if (status === 'size') {
+        const size = val.split('x')
+        this.currSize = `${size[0]}x${size[1]}`
+      } else if (status === 'side') {
+        this.currSide = val
+      }
+      this.getSortProds()
+      this.currProd = { ...this.sortProds[0] }
+      this.$router.push(`/product/${this.currProd.id}`)
+    },
+    getSortProds () {
+      // 選 size, side 時 預設選取 sortProds 的第一筆資料
+      // 選 price 時 即選取該資料
 
-      // 取出該產品所有 size, side
-      this.currProds.forEach((item) => {
-        const str = `${item.content.width}x${item.content.height}`
-        allSize.push(str)
-        allSide.push(item.content.side)
+      // 篩選的資料
+      const filterProds = this.currProds.filter((el, i) => {
+        const elCnt = el.content
+        const size = this.currSize.split('x')
+        return elCnt.width === Number(size[0]) && elCnt.height === Number(size[1]) && elCnt.side === this.currSide
       })
-      // 取出不重複的 size
+
+      // 排序 - 先將資料存入暫時的 Array
+      const mapped = filterProds.map((el, i) => {
+        return { index: i, value: el }
+      })
+      // 排序 - 暫時的 Array 依數量排序
+      mapped.sort((a, b) => {
+        if (a.value.content.qty > b.value.content.qty) return 1
+        if (a.value.content.qty < b.value.content.qty) return -1
+        return 0
+      })
+      // 排序 - 再依 filterProds 的資料存回 sortProds
+      this.sortProds = mapped.map(el => filterProds[el.index])
+    },
+    // 初始化顯示 size, side
+    showSizeAndSide () {
+      // 該產品所有 size, side
+      const allSize = this.currProds.map(item => {
+        return `${item.content.width}x${item.content.height}`
+      })
+      const allSide = this.currProds.map(item => {
+        return item.content.side
+      })
+
+      // 不重複的 size
       this.sizeList = allSize.filter((item, index) => allSize.indexOf(item) === index)
-      // 取出不重複的 side
+      this.sizeList.sort() // 排序 size
+      // 不重複的 side
       this.sideList = allSide.filter((item, index) => allSide.indexOf(item) === index)
+      this.sideList.sort() // 排序 side
     },
     // 物件比較
     shallowEqual (obj1, obj2) {
@@ -185,70 +211,10 @@ export default {
         }
       }
       return true
-    },
-    // 依條件篩選
-    sortProduct (str) {
-      if (str === 'all') {
-        // 點選 price 時進行嚴格篩選 跳至對應產品頁
-        const choseProduct = this.currProds.find(item => {
-          const currContent = this.currProd.content
-          const iContent = item.content
-          console.log(currContent, iContent)
-          console.log(this.shallowEqual(currContent, iContent))
-          // return this.shallowEqual(currContent, itemContent)
-          // size(寬 高) 單雙面 數量 材質
-          return iContent.width === currContent.width && iContent.height === currContent.height && iContent.side === currContent.side && iContent.material === currContent.material && iContent.qty === currContent.qty
-        })
-        console.log(choseProduct)
-        this.currProd = { ...choseProduct }
-      } else {
-        // 篩選出當前的選取條件 size, side 的 products
-        this.sortProds = this.currProds.filter(item => {
-          const iContent = item.content
-          const currContent = this.currProd.content
-          return iContent.width === currContent.width && iContent.height === currContent.height && iContent.side === currContent.side
-        })
-        // 數量排序小到大排序
-        this.sortProds.sort((a, b) => {
-          return a.content.qty - b.content.qty
-        })
-        this.currProd = { ...this.sortProds[0] }
-      }
-
-      this.$router.push(`/product/${this.currProd.id}`)
-    },
-    addToCart () {
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
-      this.$http.post(url, { data: { product_id: this.currProd.id, qty: 1 } })
-        .then((res) => {
-          alert(res.data.message)
-        })
-        .catch((err) => {
-          console.log(err.response.data.message)
-        })
-    },
-    iniPage () {
-      const id = this.prodId
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${id}`
-      console.log('iniPage', id)
-      // 依當前產品頁顯示對應的產品資料
-      this.$http
-        .get(url)
-        .then((res) => {
-          // 當前產品
-          this.currProd = res.data.product
-          // 當前產品尺寸
-          this.currSize = `${this.currProd.content.width}x${this.currProd.content.height}`
-          // 顯示產品列表
-          this.getProds()
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     }
   },
   mounted () {
-    this.iniPage()
+    this.getProds()
   }
 }
 </script>

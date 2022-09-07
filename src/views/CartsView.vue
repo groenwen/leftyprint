@@ -102,19 +102,17 @@ export default {
           this.carts = res.data.data.carts
         })
         .catch((err) => {
-          console.log(err)
+          alert(err.response.data.message)
         })
     },
     clearCarts () {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/carts`
       this.$http.delete(url)
         .then((res) => {
-          console.log(res.data)
           alert(res.data.message)
           this.getCarts()
         })
         .catch((err) => {
-          console.log(err.response.data.message)
           alert(err.response.data.message)
         })
     },
@@ -122,12 +120,10 @@ export default {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${id}`
       this.$http.delete(url)
         .then((res) => {
-          console.log(res.data)
           alert(res.data.message)
           this.getCarts()
         })
         .catch((err) => {
-          console.log(err.response.data.message)
           alert(err.response.data.message)
         })
     },

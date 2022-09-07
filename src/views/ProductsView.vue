@@ -1,17 +1,17 @@
 <template>
   <v-loading :active="isLoading" ></v-loading>
   <div>
-    <h1>所有產品</h1>
+    <p>所有產品</p>
     <div class="row">
-      <div class="col-4" v-for="item in products" :key="item.id">
+      <div class="col-4" v-for="item in pords" :key="item.id">
         <div class="card">
-          <div class="card-img" :style="{backgroundImage: `url(${item.imageUrl})`}">
+          <!-- <div class="card-img" :style="{backgroundImage: `url(${item.imageUrl})`}">
 
-          </div>
+          </div> -->
           <div class="card-body">
-            <h5 class="card-title">{{ item.title }}</h5>
+            <p class="card-title">{{ item.title }}</p>
             <p class="card-text">{{ item.description }}</p>
-            <router-link :to="`/product2/${item.id}`" class="btn btn-primary">Go somewhere</router-link>
+            <router-link :to="`/product/${item.id}`" class="btn btn-primary">Go somewhere</router-link>
           </div>
         </div>
       </div>
@@ -31,43 +31,54 @@
 export default {
   data () {
     return {
+      VUE_APP: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}`,
       isLoading: false,
-      allProducts: [],
-      products: []
+      allProds: [],
+      pords: []
     }
   },
   methods: {
-    getProducts () {
+    getProds () {
       this.isLoading = true
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`
+
+      const url = `${this.VUE_APP}/products/all`
       this.$http.get(url)
         .then((res) => {
           this.isLoading = false
-          this.allProducts = res.data.products
-          // 取出所有產品的 title
-          let title = []
-          this.allProducts.forEach(item => {
-            title.push(item.title)
-          })
-          // 取出不重複的 title
-          title = title.filter((item, index) => title.indexOf(item) === index)
-          console.log(this.allProducts)
-          // 將第一個產品 設為產品入口
-          title.forEach((item1, index) => {
-            const product = this.allProducts.find(item2 => item1 === item2.title)
-            this.products.push(product)
-          })
+          this.allProds = res.data.products
+          // 所有 title [a, a, b, c, c, ....]
+          let title = this.allProds.map(el => el.title)
 
-          console.log(this.products)
+          // 不重複的 title [a, b, c, ....]
+          title = title.filter((el, i) => title.indexOf(el) === i)
+
+          // sort AllProds
+          const mapped = this.allProds.map((el, i) => {
+            return { index: i, value: el }
+          })
+          const sortList = ['width', 'height', 'side', 'qty']
+          sortList.forEach(el => {
+            mapped.sort((a, b) => {
+              if (a.value.content[el] > b.value.content[el]) return 1
+              if (a.value.content[el] < b.value.content[el]) return -1
+              return 0
+            })
+          })
+          this.allProds = mapped.map(el => this.allProds[el.index])
+
+          // 將第一個產品 設為產品入口
+          title.forEach((el, i) => {
+            const prod = this.allProds.find(el2 => el === el2.title)
+            this.pords.push(prod)
+          })
         })
         .catch((err) => {
-          console.log(err.data.message)
+          alert(err.response.data.message)
         })
     }
   },
   mounted () {
-    this.getProducts()
-    console.log('hello')
+    this.getProds()
   }
 }
 </script>

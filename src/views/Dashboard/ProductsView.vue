@@ -85,6 +85,7 @@ import delProductModal from '../../components/DelProductModal.vue'
 export default {
   data () {
     return {
+      VUE_APP: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}`,
       isLoading: true,
       isNew: false,
       allProducts: [],
@@ -107,27 +108,23 @@ export default {
   methods: {
     // 取得所有產品
     getProducts (page = 1) {
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`
+      const url = `${this.VUE_APP}/admin/products?page=${page}`
       this.$http.get(url)
         .then((res) => {
           this.isLoading = false
           // API 資料存入 allProducts
           this.allProducts = res.data.products
           this.pagination = res.data.pagination
-          console.log(this.allProducts)
-          console.log(typeof this.allProducts[0].content)
         })
         .catch((err) => {
           this.isLoading = false
           alert(err.response.data.message)
           this.$router.push('/login')
-          console.log(err.response.data.message)
         })
     },
     updateProduct (item) {
-      console.log(item)
       const data = { ...item }
-      let url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product`
+      let url = `${this.VUE_APP}/admin/product`
       let http = 'post'
       if (!this.isNew) {
         http = 'put'
@@ -135,7 +132,6 @@ export default {
       }
       this.$http[http](url, { data })
         .then((res) => {
-          console.log(res)
           alert(res.data.message)
           this.hideModal()
           this.getProducts()
@@ -146,7 +142,7 @@ export default {
     },
     copyProduct (item) {
       const data = { ...item }
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product`
+      const url = `${this.VUE_APP}/admin/product`
       this.$http.post(url, { data })
         .then((res) => {
           this.getProducts()
@@ -156,7 +152,7 @@ export default {
         })
     },
     delProduct (id) {
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${id}`
+      const url = `${this.VUE_APP}/admin/product/${id}`
       this.$http.delete(url)
         .then((res) => {
           alert(res.data.message)
@@ -164,7 +160,7 @@ export default {
           this.getProducts()
         })
         .catch((err) => {
-          console.log(err)
+          alert(err.response.data.message)
         })
     },
     // 開啟 modal
