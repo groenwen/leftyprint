@@ -43,6 +43,10 @@ const routes = [
         component: () => import('../views/Dashboard/ProductsView.vue')
       },
       {
+        path: 'orders',
+        component: () => import('../views/Dashboard/OrdersView.vue')
+      },
+      {
         path: 'upload',
         component: () => import('../views/Dashboard/UploadFile.vue')
       }

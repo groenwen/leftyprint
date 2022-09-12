@@ -1,22 +1,19 @@
 <template>
   <div class="container">
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
-    <p>名名快速 9x5.4(side, material, qty)</p>
-    <select class="form-select">
-      <option v-for="(item, index) in sideList" value="item" :key="`side${index}`">{{ item }}</option>
-    </select>
-    <div>
-      <a href="#" class="btn btn-sm pill" :class="[isFront ? 'btn-secondary' : 'btn-outline-secondary']" @click="isFront = true">正面</a>
-      <a href="#" class="btn btn-sm pill" :class="[!isFront ? 'btn-secondary' : 'btn-outline-secondary']" @click="isFront = false">背面</a>
-    </div>
+    <h2>名片快速製作</h2>
+    <p> 9x5.4cm 雙面 一級卡 300張</p>
     <div class="d-flex">
       <div>
         <canvas ref="front" style="border: 1px solid #F7F9FB;" v-show="isFront"></canvas>
         <canvas ref="back" style="border: 1px solid #F7F9FB;" v-show="!isFront"></canvas>
+        <div>
+          <a href="#" class="btn btn-sm pill" :class="[isFront ? 'btn-secondary' : 'btn-outline-secondary']" @click="isFront = true">正面</a>
+          <a href="#" class="btn btn-sm pill" :class="[!isFront ? 'btn-secondary' : 'btn-outline-secondary']" @click="isFront = false">背面</a>
+        </div>
       </div>
-      <div class="ms-5">
+      <div class="ms-3">
         <form @submit="addToCart('-NAn-K3qa3HOzb0sNyKh')">
-          <p class="mb-3">名 / 9X5.4 / 一</p>
           <div v-show="isFront">
             <div class="mb-3">
               <label for="frontName" class="form-label">Name</label>
@@ -61,7 +58,8 @@ export default {
       },
       frontForm: {
         name: 'September',
-        phone: '20220908'
+        phone: '20220908',
+        company: 'Print'
       },
       backForm: {
         name: 'back',
@@ -118,40 +116,6 @@ export default {
       this.dataURL[side] = canvas.toDataURL()
       this.vueCanvas = ctx
     },
-    showSpec () {
-      const url = `${this.VUE_APP}/products/all`
-      this.$http.get(url)
-        .then((res) => {
-          // [a, b, c...]
-          const allProds = res.data.products
-          // obj
-          this.currProds = allProds.filter((item) => item.title === '名片')
-          this.showSizeAndSide()
-        })
-        .catch((err) => {
-          alert(err.response.data.message)
-        })
-    },
-    // 初始化顯示 side, material
-    showSizeAndSide () {
-      // 該產品所有 side, material
-      const allSide = this.currProds.map(item => {
-        return item.content.side
-      })
-
-      // 該產品所有 side, material
-      const allMaterial = this.currProds.map(item => {
-        return item.content.material
-      })
-
-      // 不重複的 side
-      this.sideList = allSide.filter((item, index) => allSide.indexOf(item) === index)
-      this.sideList.sort() // 排序 side
-
-      // 不重複的 side
-      this.materialList = allMaterial.filter((item, index) => allMaterial.indexOf(item) === index)
-      this.materialList.sort() // 排序 material
-    },
     addToCart (id) {
       const url = `${this.VUE_APP}/cart`
       this.$http.get(url)
@@ -184,7 +148,6 @@ export default {
   mounted () {
     this.createCanvas('front')
     this.createCanvas('back')
-    this.showSpec()
   }
 }
 </script>
