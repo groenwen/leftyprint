@@ -211,6 +211,16 @@ export default {
         }
       }
       return true
+    },
+    addToCart () {
+      const url = `${this.VUE_APP}/cart`
+      this.$http.post(url, { data: { product_id: this.currProd.id, qty: 1, files: [{ id: 0 }] } })
+        .then((res) => {
+          alert(res.data.message)
+        })
+        .catch((err) => {
+          console.log(err.response.data.message)
+        })
     }
   },
   mounted () {

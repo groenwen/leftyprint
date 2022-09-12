@@ -15,33 +15,39 @@
             <td>尺寸</td>
             <td>材質</td>
             <td>張數</td>
-            <td>單價</td>
-            <td>總數</td>
-            <td>特價</td>
+            <td>Price</td>
             <td></td>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in carts" :key="item.id">
             <td>
-              <span class="badge text-bg-secondary">{{ item.product.category }}</span>
+              <div v-if="item.files === undefined" style="height: 120px;">
+                &nbsp;
+              </div>
+              <div v-else>
+                <img :src="item.files[0].front" height="120" alt="">&nbsp;
+                <img :src="item.files[0].back" height="120" alt="">
+              </div>
             </td>
             <!-- <td><img :src="item.imageUrl" width="100" /></td> -->
             <td>
+              <span class="badge text-bg-secondary">{{ item.product.category }}</span><br />
               {{ item.product.title }} <br />
-              <span class="small text-secondary">{{ item.product.id }}</span>
+              <span class="small text-secondary">{{ item.product.id }} <br /> qty: {{ item.qty }} total: {{ item.total }}</span>
             </td>
             <td>{{ item.product.content.side }}</td>
             <td>{{ item.product.content.width }} mm X {{item.product.content.height }} mm</td>
             <td>{{ item.product.content.material }}</td>
             <td>{{ item.product.content.qty }} {{ item.product.unit }}</td>
             <td>$ {{ item.product.price }}</td>
-            <td>{{ item.qty }}</td>
-            <td>$ {{ item.total }}</td>
-            <td><button class="btn btn-sm btn-outline-secondary" @click="delCart(item.id)">刪除</button></td>
+            <td><button class="btn btn-sm btn-outline-secondary" @click="delCart(item, item.files[0].id)">刪除</button></td>
           </tr>
         </tbody>
       </table>
+      <div>
+        <p class="text-end">total: {{total}} Final: {{final_total}}</p>
+      </div>
     </div>
     <div class="row justify-content-center">
       <div class="col-8">
@@ -82,6 +88,8 @@
 export default {
   data () {
     return {
+      total: 0,
+      final_total: 0,
       carts: [],
       order: {
         user: {
@@ -99,10 +107,31 @@ export default {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
       this.$http.get(url)
         .then((res) => {
-          this.carts = res.data.data.carts
+          this.total = res.data.data.total
+          this.final_total = res.data.data.final_total
+          const carts = res.data.data.carts
+          const fileCarts = []
+          // 整理 carts 陣列，將 files > 1 的資料拆出 (以檔案為單一 cartItem)
+          carts.forEach(item => {
+            // 如果沒有 files 值 或 files <= 1 直接存入 item
+            if (item.files === undefined || item.files.length <= 1) {
+              fileCarts.push(item)
+            } else {
+              // 依 files 的數量 拆分成對應的 cartItem 數，並存回 fileCarts
+              const count = item.files.length
+              for (let i = 0; i < count; i++) {
+                const cartItem = { ...item }
+                cartItem.files = [item.files[i]]
+                cartItem.files[0].id = i + 1
+                fileCarts.push(cartItem)
+              }
+            }
+          })
+          console.log(res.data.data.carts)
+          this.carts = fileCarts
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          alert(err)
         })
     },
     clearCarts () {
@@ -116,12 +145,37 @@ export default {
           alert(err.response.data.message)
         })
     },
-    delCart (id) {
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${id}`
-      this.$http.delete(url)
+    delCart (item, fileId) {
+      console.log(item)
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
+      this.$http.get(url)
         .then((res) => {
-          alert(res.data.message)
-          this.getCarts()
+          const carts = res.data.data.carts
+          const cartItem = carts.find(el => el.product_id === item.product_id)
+          // 如果只有一個檔案 直接刪除該購物車項目
+          if (cartItem.files === undefined || cartItem.files.length <= 1) {
+            const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${item.id}`
+            this.$http.delete(url)
+              .then((res) => {
+                alert(res.data.message)
+                this.getCarts()
+              })
+              .catch((err) => {
+                alert(err.response.data.message)
+              })
+          } else {
+            // 一個檔案以上，以更新購物車方式
+            cartItem.files.splice(fileId - 1, 1)
+            const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${item.id}`
+            this.$http.put(url, { data: { product_id: cartItem.id, qty: 1, files: cartItem.files } })
+              .then((res) => {
+                alert(res.data.message)
+                this.getCarts()
+              })
+              .catch((err) => {
+                alert(err.response.data.message)
+              })
+          }
         })
         .catch((err) => {
           alert(err.response.data.message)
