@@ -69,6 +69,13 @@
       </table>
     </div>
     <p>NT$ {{currProd.price}}</p>
+    <div>
+      <p>upload</p>
+      <form @submit.prevent="uploadFile">
+        <input type="file" id="myFile" name="myFile" accept="image/png, image/jpeg" @change="choseFile">
+        <button type="submit" >Upload</button>
+      </form>
+    </div>
     <a href="#" class="btn btn-secondary" @click.prevent="addToCart()">Add to cart</a>
   </div>
 </template>
@@ -93,7 +100,8 @@ export default {
       currSide: '',
       carts: [],
       sizeList: [],
-      sideList: []
+      sideList: [],
+      file: {}
     }
   },
   computed: {
@@ -220,6 +228,27 @@ export default {
         })
         .catch((err) => {
           console.log(err.response.data.message)
+        })
+    },
+    choseFile (e) {
+      this.file = e.target.files[0]
+      console.log(this.file)
+    },
+    uploadFile () {
+      const url = 'https://script.google.com/macros/s/AKfycbwuS2QeYvec72MZrQTPElC07XE1ntHm3tepY2ySf44qWRNvy_J9vADKZveVQ93dzhO8/exec'
+      // const form = new FormData()
+      // const parameter = {
+      //   fileName: this.file.name,
+      //   fileType: this.file.type
+      // }
+      // form.append('file', this.file)
+      // console.log(form.parentNode)
+      this.$http.post(url, this.file, { headers: { 'content-type': 'text/plain; charset=utf-8' } })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
         })
     }
   },
