@@ -1,17 +1,18 @@
 <template>
   <v-loading :active="isLoading" ></v-loading>
-  <div>
+  <div class="container">
     <p>所有產品</p>
     <div class="row">
       <div class="col-4" v-for="item in pords" :key="item.id">
-        <div class="card">
-          <!-- <div class="card-img" :style="{backgroundImage: `url(${item.imageUrl})`}">
-
-          </div> -->
+        <div class="card bg-light p-4">
+          <div class="card-img bg-cover" :style="{backgroundImage: `url(${item.imageUrl})`}">
+          </div>
           <div class="card-body">
-            <p class="card-title">{{ item.title }}</p>
+            <h5 class="card-title">{{ item.title }}</h5>
             <p class="card-text">{{ item.description }}</p>
-            <router-link :to="`/product/${item.id}`" class="btn btn-primary">Go somewhere</router-link>
+            <div class="text-end">
+              <router-link :to="`/product/${item.id}`" class="btn btn-outline-primary">查看產品</router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -59,8 +60,8 @@ export default {
           const sortList = ['width', 'height', 'side', 'qty']
           sortList.forEach(el => {
             mapped.sort((a, b) => {
-              if (a.value.content[el] > b.value.content[el]) return 1
-              if (a.value.content[el] < b.value.content[el]) return -1
+              if (a.value[el] > b.value[el]) return 1
+              if (a.value[el] < b.value[el]) return -1
               return 0
             })
           })

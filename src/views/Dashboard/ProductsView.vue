@@ -10,16 +10,16 @@
       <thead>
         <tr>
           <td>No</td>
-          <td>Category</td>
+          <td>類別</td>
           <!-- <td></td> -->
-          <td>Title</td>
+          <td>產品名稱</td>
           <td>單/雙面</td>
           <td>尺寸</td>
           <td>材質</td>
           <td>數量</td>
-          <td>Description</td>
-          <td>原價 (OP)</td>
-          <td>特價</td>
+          <td>產品介紹</td>
+          <td>原價</td>
+          <td>售價</td>
           <td>顯示</td>
           <td></td>
         </tr>
@@ -36,10 +36,10 @@
             {{ item.title }} <br />
             <span class="small text-secondary">{{ item.id }}</span>
           </td>
-          <td>{{ item.content.side }}</td>
-          <td>{{ item.content.width }} mm X {{ item.content.height }} mm</td>
-          <td>{{ item.content.material }}</td>
-          <td>{{ item.content.qty }} {{ item.unit }}</td>
+          <td>{{ item.side }}</td>
+          <td>{{ item.width }} mm X {{ item.height }} mm</td>
+          <td>{{ item.material }}</td>
+          <td>{{ item.p_qty }} {{ item.unit }}</td>
           <td>{{ item.description }}</td>
           <td>$ {{ item.origin_price }}</td>
           <td>$ {{ item.price }}</td>
@@ -90,13 +90,11 @@ export default {
       isNew: false,
       allProducts: [],
       product: {
-        content: {
-          width: 90,
-          height: 54,
-          qty: 100,
-          side: 'single',
-          material: '一級卡'
-        },
+        width: 90,
+        height: 54,
+        side: 'single',
+        material: '一級卡',
+        p_qty: 300,
         imagesUrl: []
       },
       pagination: {}
@@ -132,8 +130,8 @@ export default {
       }
       this.$http[http](url, { data })
         .then((res) => {
-          alert(res.data.message)
           this.hideModal()
+          alert(res.data.message)
           this.getProducts()
         })
         .catch((err) => {
@@ -155,8 +153,8 @@ export default {
       const url = `${this.VUE_APP}/admin/product/${id}`
       this.$http.delete(url)
         .then((res) => {
-          alert(res.data.message)
           this.hideModal()
+          // alert(res.data.message)
           this.getProducts()
         })
         .catch((err) => {
@@ -167,14 +165,9 @@ export default {
     openModal (active, item) {
       if (active === 'new') {
         this.product = {
-          content: {
-            width: 90,
-            height: 54,
-            qty: 100,
-            side: 'single',
-            material: '一級卡'
-          },
-          imagesUrl: []
+          imagesUrl: [],
+          side: '單面',
+          is_enabled: 1
         }
         this.$refs.callModal.showModal()
         this.isNew = true

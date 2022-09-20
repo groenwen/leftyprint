@@ -36,10 +36,10 @@
               {{ item.product.title }} <br />
               <span class="small text-secondary">{{ item.product.id }} <br /> qty: {{ item.qty }} total: {{ item.total }}</span>
             </td>
-            <td>{{ item.product.content.side }}</td>
-            <td>{{ item.product.content.width }} mm X {{item.product.content.height }} mm</td>
-            <td>{{ item.product.content.material }}</td>
-            <td>{{ item.product.content.qty }} {{ item.product.unit }}</td>
+            <td>{{ item.product.side }}</td>
+            <td>{{ item.product.width }} mm X {{item.product.height }} mm</td>
+            <td>{{ item.product.material }}</td>
+            <td>{{ item.product.p_qty }} {{ item.product.unit }}</td>
             <td>$ {{ item.product.price }}</td>
             <td><button class="btn btn-sm btn-outline-secondary" @click="delCart(item, item.files[0].id)">刪除</button></td>
           </tr>
@@ -84,6 +84,7 @@
   </div>
 </template>
 <script>
+import emitter from '@/js/emitter'
 // todo: 地址導入縣市 select
 export default {
   data () {
@@ -127,8 +128,9 @@ export default {
               }
             }
           })
-          console.log(res.data.data.carts)
           this.carts = fileCarts
+          // 更新 nav cart
+          emitter.emit('cartCount')
         })
         .catch((err) => {
           alert(err)
@@ -146,7 +148,6 @@ export default {
         })
     },
     delCart (item, fileId) {
-      console.log(item)
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
       this.$http.get(url)
         .then((res) => {

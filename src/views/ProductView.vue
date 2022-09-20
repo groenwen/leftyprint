@@ -2,13 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col d-flex flex-column justify-content-end">
-        <p>{{ currProd.title }}</p>
+        <h1>{{ currProd.title }}</h1>
         <p>{{ currProd.description }}</p>
       </div>
       <div class="col-4">
-        <!-- <div class="currProduct-img" :style="{backgroundImage: `url(${currProd.imageUrl})`}">
+        <div class="currProduct-img" :style="{backgroundImage: `url(${currProd.imageUrl})`}">
 
-        </div> -->
+        </div>
       </div>
     </div>
 
@@ -34,7 +34,7 @@
         @click.prevent="checkSizeAndSide('side', item)"
         class="btn btn-sm rounded-pill me-2"
         :class="[
-          this.currProd.content.side === item
+          this.currProd.side === item
             ? 'btn-secondary'
             : 'btn-outline-secondary'
         ]"
@@ -57,10 +57,10 @@
         </thead>
         <tbody>
           <tr v-for="item in sortProds" :key="item.id" :class="{'bg-light':this.currProd.id === item.id}">
-            <th>{{ item.content.width }}x{{ item.content.height }}</th>
-            <td>{{ item.content.side }}</td>
-            <td>{{ item.content.material }}</td>
-            <td>{{ item.content.qty }}</td>
+            <th>{{ item.width }}x{{ item.height }}</th>
+            <td>{{ item.side }}</td>
+            <td>{{ item.material }}</td>
+            <td>{{ item.p_qty }}</td>
             <td>$ {{ item.origin_price }}</td>
             <td><router-link :to="`/product/${item.id}`">$ {{ item.price }}</router-link></td>
             <td>{{ item.id }}</td>
@@ -88,6 +88,7 @@
 }
 </style>
 <script>
+import emitter from '@/js/emitter'
 export default {
   data () {
     return {
@@ -106,13 +107,11 @@ export default {
   },
   computed: {
     prodId () {
-      console.log('computed')
       return this.$route.params.id
     }
   },
   watch: {
     prodId () {
-      console.log('watch')
       this.getProds()
     }
   },
@@ -133,8 +132,8 @@ export default {
           const allProds = res.data.products
           // obj
           this.currProd = allProds.find((item) => item.id === this.prodId)
-          this.currSize = `${this.currProd.content.width}x${this.currProd.content.height}`
-          this.currSide = this.currProd.content.side
+          this.currSize = `${this.currProd.width}x${this.currProd.height}`
+          this.currSide = this.currProd.side
           // [a, a, a...]
           this.currProds = allProds.filter((item) => item.title === this.currProd.title)
           // 列出 size, side
@@ -166,9 +165,8 @@ export default {
 
       // 篩選的資料
       const filterProds = this.currProds.filter((el, i) => {
-        const elCnt = el.content
         const size = this.currSize.split('x')
-        return elCnt.width === Number(size[0]) && elCnt.height === Number(size[1]) && elCnt.side === this.currSide
+        return el.width === Number(size[0]) && el.height === Number(size[1]) && el.side === this.currSide
       })
 
       // 排序 - 先將資料存入暫時的 Array
@@ -177,8 +175,8 @@ export default {
       })
       // 排序 - 暫時的 Array 依數量排序
       mapped.sort((a, b) => {
-        if (a.value.content.qty > b.value.content.qty) return 1
-        if (a.value.content.qty < b.value.content.qty) return -1
+        if (a.value.p_qty > b.value.p_qty) return 1
+        if (a.value.p_qty < b.value.p_qty) return -1
         return 0
       })
       // 排序 - 再依 filterProds 的資料存回 sortProds
@@ -188,10 +186,10 @@ export default {
     showSizeAndSide () {
       // 該產品所有 size, side
       const allSize = this.currProds.map(item => {
-        return `${item.content.width}x${item.content.height}`
+        return `${item.width}x${item.height}`
       })
       const allSide = this.currProds.map(item => {
-        return item.content.side
+        return item.side
       })
 
       // 不重複的 size
@@ -224,15 +222,16 @@ export default {
       const url = `${this.VUE_APP}/cart`
       this.$http.post(url, { data: { product_id: this.currProd.id, qty: 1, files: [{ id: 0 }] } })
         .then((res) => {
+          // 更新購物車數量
+          emitter.emit('cartCount')
           alert(res.data.message)
         })
         .catch((err) => {
-          console.log(err.response.data.message)
+          alert(err.response.data.message)
         })
     },
     choseFile (e) {
       this.file = e.target.files[0]
-      console.log(this.file)
     },
     uploadFile () {
       const url = 'https://script.google.com/macros/s/AKfycbwuS2QeYvec72MZrQTPElC07XE1ntHm3tepY2ySf44qWRNvy_J9vADKZveVQ93dzhO8/exec'

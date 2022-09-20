@@ -51,12 +51,6 @@ export default {
       document.cookie = 'groenToken=;expires=;'
       alert('已登出後台')
       this.$router.push('/login')
-      // const url = `${process.env.VUE_APP_API}/logout`
-      // this.$http.post(url)
-      //   .then((res) => {
-      //     alert(res.data.message)
-      //     this.$router.push('/login')
-      //   })
     }
   },
   mounted () {
