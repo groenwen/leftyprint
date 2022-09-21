@@ -1,17 +1,27 @@
 <template>
   <v-loading :active="isLoading" ></v-loading>
-  <div class="container">
-    <p>所有產品</p>
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-5 border-bottom">
+      <h1 class=" fs-3 text-dark">
+        <img src="@/assets/images/people01.svg" class="me-3" height="55" alt="">
+        <span class="align-middle">所有產品</span>
+      </h1>
+      <div>
+        <span class="me-3 text-primary small">FREE SHIPPING</span>
+        <span class="material-symbols-outlined text-primary fs-1 align-middle me-3">local_shipping</span>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-4" v-for="item in pords" :key="item.id">
-        <div class="card bg-light p-4">
+        <div class="card bg-light p-4 mb-4">
           <div class="card-img bg-cover" :style="{backgroundImage: `url(${item.imageUrl})`}">
           </div>
           <div class="card-body">
-            <h5 class="card-title">{{ item.title }}</h5>
-            <p class="card-text">{{ item.description }}</p>
+            <h5 class="card-title fw-light">{{ item.title }}</h5>
+            <p class="card-text text-secondary">{{ item.content }}</p>
             <div class="text-end">
-              <router-link :to="`/product/${item.id}`" class="btn btn-outline-primary">查看產品</router-link>
+              <router-link :to="`/product/${item.id}`" class="card-link btn btn-sm btn-outline-secondary stretched-link">查看產品</router-link>
             </div>
           </div>
         </div>
@@ -19,15 +29,6 @@
     </div>
   </div>
 </template>
-<style lang="scss">
-.card-img {
-  height: 300px;
-  background-size: cover;
-  background-position: center;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-</style>
 <script>
 export default {
   data () {

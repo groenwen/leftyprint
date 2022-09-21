@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <p>Dashboard</p>
-    <nav>
+    <nav class="mb-5">
       <router-link to="/admin">後台首頁</router-link> |
       <router-link to="/admin/products">產品列表</router-link> |
       <router-link to="/admin/orders">訂單管理</router-link> |

@@ -1,90 +1,125 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col d-flex flex-column justify-content-end">
-        <h1>{{ currProd.title }}</h1>
-        <p>{{ currProd.description }}</p>
-      </div>
-      <div class="col-4">
-        <div class="currProduct-img" :style="{backgroundImage: `url(${currProd.imageUrl})`}">
-
+  <div class="mb-5 bg-light">
+    <div class="container py-4">
+      <div class="row justify-content-between">
+        <div class="col-5 align-self-center py-5">
+          <div class="align-content-center pb-4 mb-5 border-bottom">
+            <span class="mb-3 d-inline-block px-3 py-2 fs-8 lh-1 text-white bg-secondary rounded-pill position-relative">{{ currProd.category }}</span>
+            <h1 class="mb-3 fs-2">{{ currProd.title }}</h1>
+            <p>{{ currProd.content }}</p>
+          </div>
+          <div class="d-flex">
+            <div class="d-flex align-items-center me-5">
+              <span class="material-symbols-outlined fs-1 text-primary me-3">calendar_month</span>
+              <div class="d-flex flex-column justify-content-center">
+                <span class="fs-8 lh-1 mb-2 text-primary">工作天數</span>
+                <span class="lh-1">{{ currProd.description }}</span>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <span class="material-symbols-outlined fs-1 text-primary me-3">cloud_download</span>
+              <div class="d-flex flex-column justify-content-center">
+                <span class="fs-8 lh-1 mb-2 text-primary">版型下載</span>
+                <span class="lh-1">{{ currProd.description }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="bg-cover h-100" :style="{backgroundImage: `url(${currProd.imageUrl})`}">
+        </div>
         </div>
       </div>
     </div>
-
-    <hr />
-    <div class="mb-3">
-      <p>尺寸 (size)</p>
-      <a
-        href="#"
+  </div>
+  <div class="container">
+    <p class="mb-4 text-secondary fs-5"><span class="material-symbols-outlined me-2 fs-2 align-text-bottom">style</span>選擇規格</p>
+    <div class="mb-4">
+      <span class="me-3 mb-1 fs-7 text-secondary">尺寸&emsp;&nbsp;</span>
+      <a href="#"
         v-for="(item, index) in sizeList"
         :key="`size${index}`"
         @click.prevent="checkSizeAndSide('size', item)"
         class="btn btn-sm rounded-pill me-2"
-        :class="[this.currSize === item ? 'btn-secondary' : 'btn-outline-secondary']"
+        :class="[this.currSize === item ? 'btn-dark' : 'btn-outline-dark']"
         >{{ item }}
       </a>
     </div>
-    <div class="mb-3">
-      <p>單/雙面 (side)</p>
-      <a
-        href="#"
+    <div class="mb-5">
+      <span class="me-3 mb-1 fs-7 text-secondary">單/雙面</span>
+      <a href="#"
         v-for="(item, index) in sideList"
         :key="`side${index}`"
         @click.prevent="checkSizeAndSide('side', item)"
         class="btn btn-sm rounded-pill me-2"
         :class="[
           this.currProd.side === item
-            ? 'btn-secondary'
-            : 'btn-outline-secondary'
+            ? 'btn-dark'
+            : 'btn-outline-dark'
         ]"
         >{{ item }}</a
       >
     </div>
-    <div class="position-relative" style="min-height: 100px">
+    <div class="mb-4 position-relative" style="min-height: 100px">
       <v-loading :active="isLoading" ></v-loading>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>size</th>
-            <th>side</th>
-            <th>材質</th>
-            <th>數量</th>
-            <th>origin_price</th>
-            <th>Price</th>
-            <th>ID</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in sortProds" :key="item.id" :class="{'bg-light':this.currProd.id === item.id}">
-            <th>{{ item.width }}x{{ item.height }}</th>
-            <td>{{ item.side }}</td>
-            <td>{{ item.material }}</td>
-            <td>{{ item.p_qty }}</td>
-            <td>$ {{ item.origin_price }}</td>
-            <td><router-link :to="`/product/${item.id}`">$ {{ item.price }}</router-link></td>
-            <td>{{ item.id }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="bg-light px-5 py-4">
+        <table class="table table-hover">
+          <thead>
+            <tr class="text-secondary">
+              <th>尺寸</th>
+              <th>單 / 雙面</th>
+              <th>材質</th>
+              <th>數量</th>
+              <th>價格</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in sortProds" :key="item.id" :class="{'bg-white':this.currProd.id === item.id}" class="position-relative">
+              <th>{{ item.width }}x{{ item.height }}mm</th>
+              <td>{{ item.side }}</td>
+              <td class="text-primary">{{ item.material }}</td>
+              <td class="text-primary">{{ item.p_qty }} {{ item.unit }}</td>
+              <td class="text-primary">
+                $<router-link :to="`/product/${item.id}`" class="fw-bolder stretched-link">{{ item.price }}</router-link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <p>NT$ {{currProd.price}}</p>
-    <div>
+    <div class="mb-5 pt-5 text-end border-top">
+      <p>
+        <span class="me-3 px-4 py-1 fs-7 rounded-pill bg-gray-200 text-secondary">規格</span>
+        {{ currProd.width }}x{{ currProd.height }} mm ／ {{ currProd.side }} ／ {{ currProd.material }} ／ {{ currProd.p_qty }} 張
+      </p>
+      <span class="me-4 text-danger align-middle">NT$<span class="fs-2 fw-bold">{{currProd.price}}</span></span>
+      <a href="#" class="btn btn-primary" @click.prevent="addToCart()">加入購物車</a>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="text-center me-5">
+        <img src="@/assets/images/people03.svg" height="100" class="mb-3" alt="">
+        <p>印刷注意事項</p>
+      </div>
+      <div class="p-4 border border-secondary rounded-3">
+        <ul class="small mb-0">
+          <li>圖檔解析度請設定300dpi，色彩模式為CMYK</li>
+          <li>完稿的檔案須包含出血尺寸。</li>
+          <li>紫色、咖啡色為敏感色，只要CMYK其中一色誤差時，視覺顏色就會有明顯差異。</li>
+        </ul>
+      </div>
+    </div>
+    <!-- <div>
       <p>upload</p>
       <form @submit.prevent="uploadFile">
         <input type="file" id="myFile" name="myFile" accept="image/png, image/jpeg" @change="choseFile">
         <button type="submit" >Upload</button>
       </form>
-    </div>
-    <a href="#" class="btn btn-secondary" @click.prevent="addToCart()">Add to cart</a>
+    </div> -->
   </div>
 </template>
 <style lang="scss">
-.currProduct-img {
-  width: 100%;
-  height: 300px;
-  background-size: cover;
-  background-position: center;
+table th {
+  font-weight: 500;
 }
 </style>
 <script>

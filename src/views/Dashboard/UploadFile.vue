@@ -1,16 +1,30 @@
 <template>
   <div class="container">
-    <form @submit.prevent="uploadFile">
-      <input type="file" id="fileToUpload" name="file-to-upload" accept="image/png, image/jpeg" @change="choseFile">
-      <input type="submit" value="Upload">
-    </form>
+    <div class="row mb-3">
+      <div class="col-6">
+        <form class="row align-items-end" @submit.prevent="uploadFile">
+          <div class="col-auto">
+            <label for="formFile" class="form-label">上傳檔案</label>
+            <input class="form-control " type="file" id="fileToUpload" name="file-to-upload" accept="image/png, image/jpeg" @change="choseFile">
+          </div>
+          <div class="col-auto">
+            <input class="btn btn-secondary" type="submit" value="上傳">
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="imageUrl" class="form-label">圖片網址</label>
+      <textarea class="form-control" id="imageUrl" rows="3" v-model="imageUrl"></textarea>
+    </div>
   </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      file: {}
+      file: {},
+      imageUrl: ''
     }
   },
   methods: {
@@ -27,6 +41,7 @@ export default {
       this.$http.post(url, form)
         .then((res) => {
           console.log(res)
+          this.imageUrl = res.data.imageUrl
         })
         .catch((err) => {
           console.log(err.response.data.message)

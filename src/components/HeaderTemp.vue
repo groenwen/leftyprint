@@ -1,15 +1,14 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-      <router-link to="/" class="navbar-brand">Navbar</router-link>
+      <router-link to="/" class="navbar-brand"><img src="@/assets/images/logo.svg" height="35" alt=""></router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
-          <router-link to="/about" class="nav-link">About</router-link>
+          <router-link to="/about" class="nav-link">關於 Print</router-link>
           <router-link to="/products" class="nav-link">所有產品</router-link>
-          <router-link to="/admin" class="nav-link">後台</router-link>
           <router-link to="/carts" class="nav-link position-relative pe-1">
             <span class="material-symbols-outlined">shopping_cart</span>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

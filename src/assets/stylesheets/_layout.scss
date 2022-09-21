@@ -1,7 +1,13 @@
 #app {
   font-family: 'Noto Sans TC', sans-serif;
   letter-spacing: .1em;
-  color: #323232;
+  color: #484A4C;
+}
+.btn-primary {
+  color: #fff;
+}
+.ff-serif {
+  font-family: 'Noto Serif TC', serif;
 }
 
 section {
@@ -12,4 +18,27 @@ section {
 .bg-cover {
   background-position: center center;
   background-size: cover;
+}
+
+.card-img {
+  height: 300px;
+  background-size: 120%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  transition: .5s;
+}
+.card:hover {
+  .card-img {
+    background-size: 130%;
+  }
+}
+.card-text {
+  height: 3rem;
+  overflow: hidden;
+}
+
+.card-link {
+  transition: .75s;
 }
