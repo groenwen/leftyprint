@@ -5,6 +5,7 @@
       <router-link to="/admin">後台首頁</router-link> |
       <router-link to="/admin/products">產品列表</router-link> |
       <router-link to="/admin/orders">訂單管理</router-link> |
+      <router-link to="/admin/coupons">折扣碼管理</router-link> |
       <router-link to="/admin/upload">上傳圖片</router-link> |&emsp;&emsp;
       <a href="#" @click.prevent="logout()">登出</a> |&emsp;&emsp;
       <router-link to="/">回首頁</router-link>

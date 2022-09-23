@@ -1,7 +1,13 @@
 <template>
+  <div class="bg-gray-200 py-2 fs-7 text-center">
+    <div class="container">
+      <span class="material-symbols-outlined align-middle">campaign</span>
+      限時折扣碼 <span class="bg-white px-3 py-1 rounded lh-1">leftyprint2022</span>
+    </div>
+  </div>
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-      <router-link to="/" class="navbar-brand"><img src="@/assets/images/logo.svg" height="35" alt=""></router-link>
+      <router-link to="/" class="navbar-brand"><img src="@/assets/images/logo.svg" height="28" alt=""></router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -39,8 +45,24 @@ export default {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
       this.$http.get(url)
         .then((res) => {
-          this.carts = res.data.data.carts
-          console.log(this.carts)
+          const carts = res.data.data.carts
+          const fileCarts = []
+          carts.forEach(item => {
+            // 如果沒有 files 值 或 files <= 1 直接存入 item
+            if (item.files === undefined || item.files.length <= 1) {
+              fileCarts.push(item)
+            } else {
+              // 依 files 的數量 拆分成對應的 cartItem 數，並存回 fileCarts
+              const count = item.files.length
+              for (let i = 0; i < count; i++) {
+                const cartItem = { ...item }
+                cartItem.files = [item.files[i]]
+                cartItem.files[0].id = i + 1
+                fileCarts.push(cartItem)
+              }
+            }
+          })
+          this.carts = fileCarts
         })
         .catch((err) => {
           alert(err.response.data.message)

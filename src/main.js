@@ -14,6 +14,10 @@ import tw from '@vee-validate/i18n/dist/locale/zh_TW.json'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
+// sweetalert
+import SweetAlert from 'vue-sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
+
 import App from './App.vue'
 
 // 加入全部規則
@@ -31,10 +35,9 @@ configure({
 const app = createApp(App)
 app.use(router)
 app.use(VueAxios, axios)
+app.use(SweetAlert)
 app.component('VForm', Form)
 app.component('VField', Field)
 app.component('ErrorMessage', ErrorMessage)
 app.component('VLoading', Loading)
-console.log(localize)
-console.log(tw)
 app.mount('#app')

@@ -130,7 +130,7 @@ export default {
           this.getProducts()
         })
         .catch((err) => {
-          alert(err.data)
+          alert(err.response.data.message)
         })
     },
     copyProduct (item) {
@@ -141,7 +141,7 @@ export default {
           this.getProducts()
         })
         .catch((err) => {
-          alert(err.data)
+          alert(err.response.data.message)
         })
     },
     delProduct (id) {

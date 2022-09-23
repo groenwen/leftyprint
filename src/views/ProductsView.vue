@@ -1,5 +1,6 @@
 <template>
   <v-loading :active="isLoading" ></v-loading>
+  <SweetAlert></SweetAlert>
   <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-5 border-bottom">
       <h1 class=" fs-3 text-dark">
@@ -30,6 +31,8 @@
   </div>
 </template>
 <script>
+import emitter from '@/js/emitter'
+import SweetAlert from '@/components/SweetAlert.vue'
 export default {
   data () {
     return {
@@ -38,6 +41,9 @@ export default {
       allProds: [],
       pords: []
     }
+  },
+  components: {
+    SweetAlert
   },
   methods: {
     getProds () {
@@ -75,7 +81,7 @@ export default {
           })
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          emitter.emit('sweetalert', `${err.response.data.message}, error`)
         })
     }
   },

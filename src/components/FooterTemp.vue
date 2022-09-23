@@ -9,7 +9,7 @@
     <div class="container">
       <div class="d-flex justify-content-between">
         <div class="d-flex justify-content-center align-items-center">
-          <img class="me-7" src="@/assets/images/logo_dark.svg" height="40" alt="">
+          <img class="me-7" src="@/assets/images/logo_dark.svg" height="28" alt="">
           <router-link to="/about" class="me-5 text-dark">關於 Print</router-link>
           <router-link to="/products" class="me-5 text-dark">所有產品</router-link>
           <ul class="list-unstyled">

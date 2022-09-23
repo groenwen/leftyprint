@@ -1,94 +1,131 @@
 <template>
-  <div class="container">
-    <p>Carts</p>
-    <div class="text-end">
-      <button class="btn btn-sm btn-secondary" @click="clearCarts()" :disabled="carts.length <= 0">清除購物車</button>
-    </div>
-    <div>
-      <p class="text-secondary" v-if="carts.length <= 0">購物車尚無內容</p>
-      <table class="table mb-5" v-else>
-        <thead>
-          <tr>
-            <td>Category</td>
-            <td>Title</td>
-            <td>單/雙面</td>
-            <td>尺寸</td>
-            <td>材質</td>
-            <td>張數</td>
-            <td>Price</td>
-            <td></td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in carts" :key="item.id">
-            <td>
-              <div v-if="item.files === undefined" style="height: 120px;">
-                &nbsp;
-              </div>
+  <v-loading :active="isLoading" ></v-loading>
+  <SweetAlert></SweetAlert>
+  <div class="container mt-5">
+    <h1 class=" fs-3 text-dark text-center">
+      <span class="align-middle">購物車</span>
+    </h1>
+    <v-form ref="form" v-slot="{ errors }" @submit="onSubmit">
+      <div class="row">
+        <div class="col-8">
+          <div class="mb-3 border">
+            <div class="px-4 py-2 bg-gray-100 fw-bold d-flex justify-content-between border-bottom">
+              <span class="text-primary">項目</span>
+              <button class="btn btn-sm btn-outline-secondary" @click="clearCarts()" :disabled="carts.length <= 0">清除購物車</button>
+            </div>
+            <div>
+              <p class="p-4 text-secondary" v-if="carts.length <= 0">購物車尚無內容</p>
               <div v-else>
-                <img :src="item.files[0].front" height="120" alt="">&nbsp;
-                <img :src="item.files[0].back" height="120" alt="">
+                <div v-for="item in carts" :key="item.id" class="p-4 d-flex justify-content-between align-items-center">
+                  <div>
+                    <div v-if="item.files === undefined" style="height: 100px;">
+                      &nbsp;
+                    </div>
+                    <div v-else>
+                      <img :src="item.files[0].front" class="border" height="100" alt="">&nbsp;
+                      <img :src="item.files[0].back" class="border" height="100" alt="">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="fw-bold mb-2">{{ item.product.title }}</span><br>
+                    <span class="text-secondary fs-7">{{ item.product.width }} mm X {{item.product.height }} mm <br>
+                    {{ item.product.side }} ／ {{ item.product.material }} ／ {{ item.product.p_qty }} {{ item.product.unit }}
+                    </span>
+                  </div>
+                  <div>$ {{ item.product.price }}</div>
+                  <div>
+                    <a href="#" class="btn btn-sm btn-link" @click.prevent="delCart(item, item.files[0].id)">
+                      <span class="material-symbols-outlined align-middle">delete</span>
+                    </a>
+                  </div>
+                </div>
               </div>
-            </td>
-            <!-- <td><img :src="item.imageUrl" width="100" /></td> -->
-            <td>
-              <span class="badge text-bg-secondary">{{ item.product.category }}</span><br />
-              {{ item.product.title }} <br />
-              <span class="small text-secondary">{{ item.product.id }} <br /> qty: {{ item.qty }} total: {{ item.total }}</span>
-            </td>
-            <td>{{ item.product.side }}</td>
-            <td>{{ item.product.width }} mm X {{item.product.height }} mm</td>
-            <td>{{ item.product.material }}</td>
-            <td>{{ item.product.p_qty }} {{ item.product.unit }}</td>
-            <td>$ {{ item.product.price }}</td>
-            <td><button class="btn btn-sm btn-outline-secondary" @click="delCart(item, item.files[0].id)">刪除</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <div>
-        <p class="text-end">total: {{total}} Final: {{final_total}}</p>
+            </div>
+            <div class="px-4 py-3 border-top">
+              <div class="row justify-content-end">
+                <label for="code" class="col-auto form-label">
+                  <span class="material-symbols-outlined me-2 fs-4 lh-1 align-top">confirmation_number</span>折扣碼
+                </label>
+                <div class="col-auto">
+                  <input name="code" id="code" type="text" class="form-control form-control-sm" v-model="code" placeholder="輸入折扣碼" />
+                </div>
+                <div class="col-auto">
+                  <button @click="useCoupon" class="btn btn-sm btn-secondary">使用</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border">
+            <div class="px-4 py-2 text-primary fw-bold bg-gray-100">
+              收件人
+            </div>
+            <div class="py-4 row justify-content-center">
+              <div class="col-6">
+                  <div class="mb-2">
+                    <label for="name" class="form-label fs-7">姓名</label>
+                    <v-field name="姓名" id="name" type="text" rules="required" class="form-control" :class="{ 'is-invalid':errors['姓名'] }" v-model="order.user.name" placeholder="填入姓名" />
+                    <error-message name="姓名" class="invalid-feedback" />
+                  </div>
+                  <div class="mb-2">
+                    <label for="email" class="form-label fs-7">Email</label>
+                    <v-field name="email" id="email" type="email" rules="required|email" class="form-control" :class="{ 'is-invalid':errors['email'] }" v-model="order.user.email" placeholder="填入 Email" />
+                    <error-message name="email" class="invalid-feedback" />
+                  </div>
+                  <div class="mb-2">
+                    <label for="tel" class="form-label fs-7">電話</label>
+                    <v-field name="電話" id="tel" type="tel" rules="required|numeric|min:7|max:10" class="form-control" :class="{ 'is-invalid':errors['電話'] }" v-model="order.user.tel" />
+                    <error-message name="電話" class="invalid-feedback" />
+                  </div>
+                  <div class="mb-2">
+                    <label for="address" class="form-label fs-7">地址</label>
+                    <v-field name="地址" id="address" type="text" rules="required" class="form-control" :class="{ 'is-invalid':errors['地址'] }" v-model="order.user.address" />
+                    <error-message name="地址" class="invalid-feedback" />
+                  </div>
+                  <div class="mb-2">
+                    <label for="message" class="form-label fs-7">訂單備註</label>
+                    <v-field as="textarea" name="message" id="message" class="form-control" rows="3" v-model="order.message" />
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="border bg-gray-100 sticky-top">
+            <div class="p-2 text-center bg-gray-200">
+              訂單摘要
+            </div>
+            <div class="p-3">
+              <div class="d-flex justify-content-between">
+                <div>商品總計</div>
+                <div>$ {{ total }}</div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div>運費總計</div>
+                <div>免運費</div>
+              </div>
+            </div>
+            <div class="p-3 d-flex justify-content-between">
+              <div>結帳總金額</div>
+              <div class="fw-bolder text-danger">$ <span class="fs-5">{{ Math.round(final_total) }}</span></div>
+            </div>
+            <div class="d-grid p-3">
+              <button type="submit" class="btn btn-primary">結帳</button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-8">
-        <h3>收件人</h3>
-        <v-form ref="form" v-slot="{ errors }" @submit="onSubmit">
-          <div class="mb-3">
-            <label for="name" class="form-label">姓名</label>
-            <v-field name="姓名" id="name" type="text" rules="required" class="form-control" :class="{ 'is-invalid':errors['姓名'] }" v-model="order.user.name" placeholder="填入姓名" />
-            <error-message name="姓名" class="invalid-feedback" />
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <v-field name="email" id="email" type="email" rules="required|email" class="form-control" :class="{ 'is-invalid':errors['email'] }" v-model="order.user.email" placeholder="填入 Email" />
-            <error-message name="email" class="invalid-feedback" />
-          </div>
-          <div class="mb-3">
-            <label for="tel" class="form-label">電話</label>
-            <v-field name="電話" id="tel" type="tel" rules="required|numeric|min:7|max:10" class="form-control" :class="{ 'is-invalid':errors['電話'] }" v-model="order.user.tel" />
-            <error-message name="電話" class="invalid-feedback" />
-          </div>
-          <div class="mb-3">
-            <label for="address" class="form-label">地址</label>
-            <v-field name="地址" id="address" type="text" rules="required" class="form-control" :class="{ 'is-invalid':errors['地址'] }" v-model="order.user.address" />
-            <error-message name="地址" class="invalid-feedback" />
-          </div>
-          <div class="mb-3">
-            <label for="message" class="form-label">訂單備註</label>
-            <v-field as="textarea" name="message" id="message" class="form-control" rows="3" v-model="order.message" />
-          </div>
-          <button type="submit" class="btn btn-primary">結帳</button>
-        </v-form>
-      </div>
-    </div>
+    </v-form>
   </div>
 </template>
 <script>
 import emitter from '@/js/emitter'
+import SweetAlert from '@/components/SweetAlert.vue'
 // todo: 地址導入縣市 select
 export default {
   data () {
     return {
+      VUE_APP: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}`,
+      isLoading: false,
       total: 0,
       final_total: 0,
       carts: [],
@@ -100,14 +137,21 @@ export default {
           address: ''
         },
         message: ''
-      }
+      },
+      code: ''
     }
+  },
+  components: {
+    SweetAlert
   },
   methods: {
     getCarts () {
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
+      this.isLoading = true
+      const url = `${this.VUE_APP}/cart`
       this.$http.get(url)
         .then((res) => {
+          console.log(res.data.data)
+          this.isLoading = false
           this.total = res.data.data.total
           this.final_total = res.data.data.final_total
           const carts = res.data.data.carts
@@ -133,22 +177,27 @@ export default {
           emitter.emit('cartCount')
         })
         .catch((err) => {
-          alert(err)
+          this.isLoading = false
+          emitter.emit('sweetalert', `${err.response.data.message}, error`)
         })
     },
     clearCarts () {
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/carts`
+      this.isLoading = true
+      const url = `${this.VUE_APP}/carts`
       this.$http.delete(url)
         .then((res) => {
-          alert(res.data.message)
+          this.isLoading = false
+          emitter.emit('sweetalert', `${res.data.message}, success`)
           this.getCarts()
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.isLoading = false
+          emitter.emit('sweetalert', `${err.response.data.message}, error`)
         })
     },
     delCart (item, fileId) {
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
+      this.isLoading = true
+      const url = `${this.VUE_APP}/cart`
       this.$http.get(url)
         .then((res) => {
           const carts = res.data.data.carts
@@ -158,11 +207,13 @@ export default {
             const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${item.id}`
             this.$http.delete(url)
               .then((res) => {
-                alert(res.data.message)
+                this.isLoading = false
+                emitter.emit('sweetalert', `${res.data.message}, success`)
                 this.getCarts()
               })
               .catch((err) => {
-                alert(err.response.data.message)
+                this.isLoading = false
+                emitter.emit('sweetalert', `${err.response.data.message}, error`)
               })
           } else {
             // 一個檔案以上，以更新購物車方式
@@ -170,29 +221,45 @@ export default {
             const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${item.id}`
             this.$http.put(url, { data: { product_id: cartItem.id, qty: 1, files: cartItem.files } })
               .then((res) => {
-                alert(res.data.message)
+                this.isLoading = false
+                emitter.emit('sweetalert', `${res.data.message}, success`)
                 this.getCarts()
               })
               .catch((err) => {
-                alert(err.response.data.message)
+                this.isLoading = false
+                emitter.emit('sweetalert', `${err.response.data.message}, error`)
               })
           }
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.isLoading = false
+          emitter.emit('sweetalert', `${err.response.data.message}, error`)
+        })
+    },
+    useCoupon () {
+      const url = `${this.VUE_APP}/coupon`
+      this.$http.post(url, { data: { code: this.code } })
+        .then((res) => {
+          this.final_total = res.data.data.final_total
+        })
+        .catch((err) => {
+          emitter.emit('sweetalert', `${err.response.data.message}, error`)
         })
     },
     onSubmit () {
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order`
+      this.isLoading = true
+      const url = `${this.VUE_APP}/order`
       this.$http.post(url, { data: { ...this.order } })
         .then((res) => {
-          alert(res.data.message)
+          this.isLoading = false
+          emitter.emit('sweetalert', `${res.data.message}, success`)
           // 送出後 1.更新購物車 2.重置表單
           this.getCarts()
           this.$refs.form.resetForm()
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.isLoading = false
+          emitter.emit('sweetalert', `${err.response.data.message}, error`)
         })
     }
   },

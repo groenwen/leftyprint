@@ -49,6 +49,10 @@ const routes = [
       {
         path: 'upload',
         component: () => import('../views/Dashboard/UploadFile.vue')
+      },
+      {
+        path: 'coupons',
+        component: () => import('../views/Dashboard/CouponsView.vue')
       }
     ]
   }

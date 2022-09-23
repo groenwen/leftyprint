@@ -1,4 +1,6 @@
 <template>
+  <v-loading :active="isLoading" ></v-loading>
+  <SweetAlert></SweetAlert>
   <div class="mb-5 bg-light">
     <div class="container py-4">
       <div class="row justify-content-between">
@@ -62,7 +64,7 @@
     </div>
     <div class="mb-4 position-relative" style="min-height: 100px">
       <v-loading :active="isLoading" ></v-loading>
-      <div class="bg-light px-5 py-4">
+      <div class="bg-light px-4 py-3">
         <table class="table table-hover">
           <thead>
             <tr class="text-secondary">
@@ -87,13 +89,29 @@
         </table>
       </div>
     </div>
+    <div class="pb-4">
+      <form @submit.prevent="uploadFile">
+        <div class="row justify-content-end">
+          <div class="col-auto">
+            <label for="formFile" class="col-form-label" >上傳檔案</label>
+          </div>
+          <div class="col-auto">
+            <input class="form-control" type="file" id="formFile" @change="choseFile">
+          </div>
+          <!-- <div class="col-auto">
+            <button class="btn btn-secondary" type="submit" >上傳</button>
+          </div> -->
+        </div>
+        <!-- <input type="file" id="myFile" name="myFile" accept="image/png, image/jpeg" @change="choseFile"> -->
+      </form>
+    </div>
     <div class="mb-5 pt-5 text-end border-top">
       <p>
         <span class="me-3 px-4 py-1 fs-7 rounded-pill bg-gray-200 text-secondary">規格</span>
         {{ currProd.width }}x{{ currProd.height }} mm ／ {{ currProd.side }} ／ {{ currProd.material }} ／ {{ currProd.p_qty }} 張
       </p>
       <span class="me-4 text-danger align-middle">NT$<span class="fs-2 fw-bold">{{currProd.price}}</span></span>
-      <a href="#" class="btn btn-primary" @click.prevent="addToCart()">加入購物車</a>
+      <a href="#" class="btn btn-primary" @click.prevent="addToCart()" :class="{'disabled' : this.file.name === undefined}">加入購物車</a>
     </div>
     <div class="d-flex justify-content-center align-items-center">
       <div class="text-center me-5">
@@ -108,13 +126,6 @@
         </ul>
       </div>
     </div>
-    <!-- <div>
-      <p>upload</p>
-      <form @submit.prevent="uploadFile">
-        <input type="file" id="myFile" name="myFile" accept="image/png, image/jpeg" @change="choseFile">
-        <button type="submit" >Upload</button>
-      </form>
-    </div> -->
   </div>
 </template>
 <style lang="scss">
@@ -123,11 +134,13 @@ table th {
 }
 </style>
 <script>
+import demoImage from '@/assets/images/demo.jpg'
 import emitter from '@/js/emitter'
+import SweetAlert from '@/components/SweetAlert.vue'
 export default {
   data () {
     return {
-      isLoading: true,
+      isLoading: false,
       VUE_APP: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}`,
       currProd: {},
       currProds: [],
@@ -150,6 +163,9 @@ export default {
       this.getProds()
     }
   },
+  components: {
+    SweetAlert
+  },
   methods: {
     // 1.顯示所有選項 size side
     // 2. 所有產品 currProducts > 所有 title currProduct
@@ -158,11 +174,12 @@ export default {
     // 所有 size、篩選過的 size、當前 size
     // canva https://developer.mozilla.org/zh-TW/docs/Web/API/HTMLCanvasElement/toDataURL
     getProds () {
+      this.isLoading = true
       // 取得所有產品
       const url = `${this.VUE_APP}/products/all`
-      this.$http
-        .get(url)
+      this.$http.get(url)
         .then((res) => {
+          this.isLoading = false
           // [a, b, c...]
           const allProds = res.data.products
           // obj
@@ -176,11 +193,9 @@ export default {
 
           // 篩選
           this.getSortProds()
-
-          this.isLoading = false
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          emitter.emit('sweetalert', `${err.response.data.message}, error`)
         })
     },
     checkSizeAndSide (status, val) {
@@ -254,19 +269,23 @@ export default {
       return true
     },
     addToCart () {
+      this.isLoading = true
       const url = `${this.VUE_APP}/cart`
-      this.$http.post(url, { data: { product_id: this.currProd.id, qty: 1, files: [{ id: 0 }] } })
+      this.$http.post(url, { data: { product_id: this.currProd.id, qty: 1, files: [{ id: 0, front: demoImage }] } })
         .then((res) => {
+          this.isLoading = false
           // 更新購物車數量
           emitter.emit('cartCount')
-          alert(res.data.message)
+          emitter.emit('sweetalert', `${res.data.message}, success`)
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.isLoading = false
+          emitter.emit('sweetalert', `${err.response.data.message}, error`)
         })
     },
     choseFile (e) {
       this.file = e.target.files[0]
+      console.log(this.file.name.length > 0, '{}')
     },
     uploadFile () {
       const url = 'https://script.google.com/macros/s/AKfycbwuS2QeYvec72MZrQTPElC07XE1ntHm3tepY2ySf44qWRNvy_J9vADKZveVQ93dzhO8/exec'

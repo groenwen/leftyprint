@@ -1,4 +1,6 @@
 <template>
+  <v-loading :active="isLoading" ></v-loading>
+  <SweetAlert></SweetAlert>
   <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active" style="background-image: url(https://images.unsplash.com/photo-1573673601222-53e378f40f70?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80)">
@@ -30,21 +32,30 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <section>
       <div class="container">
-        <h2 class="d-flex align-items-center justify-content-center">
-          <span class="me-3 bg-primary text-white fs-6 px-3 py-2 rounded-pill position-relative dialog">Try It !</span>
-          <img class="me-3" src="@/assets/images/people01.svg" alt="">
-          <span><span class="text-primary">名片</span>快速製作</span>
-        </h2>
+        <div class="d-flex align-items-end justify-content-center mb-5">
+          <img class="me-3" src="@/assets/images/people01.svg" height="80" alt="">
+          <div>
+            <span class="d-inline-block mb-3 px-3 py-2 text-white lh-1 bg-primary rounded-pill position-relative dialog">Try It !</span>
+            <h2 class="mb-0 fw-bolder"><span class="text-primary">名片</span>快速製作</h2>
+          </div>
+        </div>
         <div class="row justify-content-center">
           <div class="col-10">
             <div class="rounded-3 overflow-hidden">
               <div class="p-5 bg-gray-100">
-                <div class="mb-3">
+                <div class="mb-4">
                   <a href="#" class="btn btn-sm rounded-pill me-2" :class="[isFront ? 'btn-dark' : 'btn-outline-dark']" @click.prevent="isFront = true">正面</a>
                   <a href="#" class="btn btn-sm rounded-pill" :class="[!isFront ? 'btn-dark' : 'btn-outline-dark']" @click.prevent="isFront = false">背面</a>
                 </div>
                 <div class="d-flex align-items-center">
-                  <div class="me-5">
+                  <div class="mt-2 me-3 color-list d-flex flex-column align-items-center align-self-start">
+                    <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#46BAC7' ? 'active' : '']" style="background-color: #46BAC7" @click.prevent="colorItem = '#46BAC7'"></a>
+                    <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F9A44A' ? 'active' : '']" style="background-color: #F9A44A" @click.prevent="colorItem = '#F9A44A'"></a>
+                    <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F37E5F' ? 'active' : '']" style="background-color: #F37E5F" @click.prevent="colorItem = '#F37E5F'"></a>
+                    <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#48A5D9' ? 'active' : '']" style="background-color: #48A5D9" @click.prevent="colorItem = '#48A5D9'"></a>
+                    <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#AF89DF' ? 'active' : '']" style="background-color: #AF89DF" @click.prevent="colorItem = '#AF89DF'"></a>
+                  </div>
+                  <div class="me-4">
                     <canvas ref="front" class="shadow-sm" v-show="isFront"></canvas>
                     <canvas ref="back" class="shadow-sm" v-show="!isFront"></canvas>
                     <div class="d-none">
@@ -77,13 +88,25 @@
                         </div>
                       </div>
                       <div v-show="!isFront">
-                        <div class="mb-3">
-                          <label for="backName" class="form-label small">Name</label>
-                          <input type="text" class="form-control" id="backName" v-model="backForm.name">
+                        <div class="mb-2 form-floating">
+                          <input type="text" class="form-control" id="backCompany" v-model="backForm.company" placeholder="輸入公司名稱">
+                          <label for="backCompany" class="form-label small">公司名稱</label>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-2 form-floating">
+                          <input type="text" class="form-control" id="backName" v-model="backForm.name" placeholder="輸入名字">
+                          <label for="backName" class="form-label small">名字</label>
+                        </div>
+                        <div class="mb-2 form-floating">
+                          <input type="text" class="form-control" id="backEName" v-model="backForm.e_name" placeholder="輸入英文名字">
+                          <label for="backEName" class="form-label small">英文名字</label>
+                        </div>
+                        <div class="mb-2 form-floating">
+                          <input type="tel" class="form-control" id="backPhone" v-model="backForm.phone" placeholder="輸入電話">
                           <label for="backPhone" class="form-label small">Phone</label>
-                          <input type="tel" class="form-control" id="backPhone" v-model="backForm.phone">
+                        </div>
+                        <div class="mb-2 form-floating">
+                          <input type="email" class="form-control" id="backEmail" v-model="backForm.email" placeholder="輸入 Email">
+                          <label for="backEmail" class="form-label small">Email</label>
                         </div>
                       </div>
                     </form>
@@ -131,7 +154,7 @@
     <section>
       <div class="container">
         <div class="d-flex align-items-end mb-5">
-          <img class="me-3" src="@/assets/images/people02.svg" alt="">
+          <img class="me-3" src="@/assets/images/people02.svg" height="80" alt="">
           <div>
             <span class="d-inline-block mb-2 px-3 py-2 text-white lh-1 bg-primary rounded-pill position-relative">\ Business /</span>
             <h2 class="mb-0 fw-bolder">專業形象</h2>
@@ -144,9 +167,9 @@
               </div>
               <div class="card-body">
                 <h5 class="card-title">名片</h5>
-                <p class="card-text">名片、集點卡，提供多種材質選擇</p>
+                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-primary stretched-link">查看產品</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
                 </div>
               </div>
             </div>
@@ -157,9 +180,9 @@
               </div>
               <div class="card-body">
                 <h5 class="card-title">名片</h5>
-                <p class="card-text">名片、集點卡，提供多種材質選擇</p>
+                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-primary stretched-link">查看產品</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
                 </div>
               </div>
             </div>
@@ -170,9 +193,9 @@
               </div>
               <div class="card-body">
                 <h5 class="card-title">信封</h5>
-                <p class="card-text">名片、集點卡，提供多種材質選擇</p>
+                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-primary stretched-link">查看產品</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
                 </div>
               </div>
             </div>
@@ -217,7 +240,7 @@
     <section>
       <div class="container">
         <div class="d-flex align-items-end mb-5">
-          <img class="me-3" src="@/assets/images/people03.svg" alt="">
+          <img class="me-3" src="@/assets/images/people03.svg" height="80" alt="">
           <div>
             <p class="d-inline-block mb-2 px-3 py-2 text-white lh-1 bg-primary rounded-pill position-relative">\ Life /</p>
             <h2 class="mb-0 fw-bolder">生活印象</h2>
@@ -230,9 +253,9 @@
               </div>
               <div class="card-body">
                 <h5 class="card-title">名片</h5>
-                <p class="card-text">名片、集點卡，提供多種材質選擇</p>
+                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-primary stretched-link">查看產品</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
                 </div>
               </div>
             </div>
@@ -243,9 +266,9 @@
               </div>
               <div class="card-body">
                 <h5 class="card-title">名片</h5>
-                <p class="card-text">名片、集點卡，提供多種材質選擇</p>
+                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-primary stretched-link">查看產品</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
                 </div>
               </div>
             </div>
@@ -256,9 +279,9 @@
               </div>
               <div class="card-body">
                 <h5 class="card-title">信封</h5>
-                <p class="card-text">名片、集點卡，提供多種材質選擇</p>
+                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-primary stretched-link">查看產品</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
                 </div>
               </div>
             </div>
@@ -284,11 +307,28 @@ $primary: #6C93F9;
     line-height: 200%;
   }
 }
-
 .carousel-item {
   height: 500px;
   background-size: cover;
   background-position: center;
+}
+.color-list {
+  width: 30px;
+}
+.color-item {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: all .25s;
+  &:hover {
+    opacity: .8;
+  }
+  &.active {
+    width: 28px;
+    height: 28px;
+    border-color: #E5EBFD !important;
+  }
 }
 .dialog::before {
   position: absolute;
@@ -307,26 +347,32 @@ $primary: #6C93F9;
 <script>
 import 'bootstrap/js/dist/carousel.js'
 import emitter from '@/js/emitter'
+import SweetAlert from '@/components/SweetAlert.vue'
 export default {
   data () {
     return {
       VUE_APP: `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}`,
+      isLoading: false,
       isFront: true,
       vueCanvas: null,
       dataURL: {
         front: '',
         back: ''
       },
+      colorItem: '#46BAC7',
       frontForm: {
-        company: 'Lefty Print',
+        company: '雲端印刷',
         name: '林小希',
-        e_name: 'Shi Shi',
+        e_name: 'Sharon',
         phone: '0912345678',
         email: 'abc78463@gmail.com'
       },
       backForm: {
-        name: 'back',
-        phone: '20220908'
+        company: 'Cloud Print',
+        name: 'SHIAU-SHI, Lin',
+        e_name: 'Sharon',
+        phone: '0912345678',
+        email: 'abc78463@gmail.com'
       },
       mode: {
         width: 92,
@@ -337,6 +383,13 @@ export default {
     }
   },
   watch: {
+    colorItem: {
+      handler (newVal, oldVal) {
+        console.log('hello')
+        this.createCanvas('front')
+        this.createCanvas('back')
+      }
+    },
     frontForm: {
       handler (newVal, oldVal) {
         this.createCanvas('front')
@@ -350,86 +403,167 @@ export default {
       deep: true
     }
   },
+  components: {
+    SweetAlert
+  },
   methods: {
     createCanvas (side) {
       const canvas = this.$refs[side]
-      canvas.width = 612
-      canvas.height = 353
+      canvas.width = 590
+      canvas.height = 360
       const ctx = canvas.getContext('2d')
 
       // 先設定顏色 再繪製位置及尺寸
       ctx.fillStyle = '#fff'
-      ctx.fillRect(0, 0, 612, 353)
-      // 矩形
-      // ctx.fillStyle = "#000000";
-      // ctx.fillRect(10, 10, 340, 196);
+      ctx.fillRect(0, 0, 590, 360)
+      ctx.save()
+
+      ctx.fillStyle = this.colorItem
+      ctx.fillRect(0, 315, 590, 45)
+      ctx.fillRect(0, 308, 590, 2)
       ctx.save()
 
       ctx.restore()
-      // 文字
-      ctx.font = '20px serif'
-      ctx.fillStyle = '#323232'
-      ctx.fillText(this[`${side}Form`].company, 50, 50)
+      // 公司
+      ctx.font = '20px sans-serif'
+      ctx.fillStyle = this.colorItem
+      ctx.fillText(this[`${side}Form`].company, 40, 50)
       ctx.save()
 
-      // 名字
-      ctx.font = '40px serif'
-      ctx.fillStyle = '#323232'
-      ctx.fillText(this[`${side}Form`].name, 140, 180)
-      ctx.save()
-
-      // 英文名字
-      ctx.font = '24px serif'
-      ctx.fillStyle = '#323232'
-      ctx.fillText(this[`${side}Form`].e_name, 290, 180)
-      ctx.save()
-
-      // image
-      ctx.drawImage(this.$refs.phone_icon, 360, 235, 16, 16)
-
-      // 文字
-      ctx.font = '16px serif'
-      ctx.fillStyle = '#323232'
-      ctx.fillText(`${this[`${side}Form`].phone}`, 380, 250)
-      ctx.save()
-
-      // image
-      ctx.drawImage(this.$refs.email_icon, 360, 265, 16, 16)
-
-      // 文字
-      ctx.font = '16px serif'
-      ctx.fillStyle = '#323232'
-      ctx.fillText(`${this[`${side}Form`].email}`, 380, 280)
-      ctx.save()
+      if (side === 'front') {
+        // 名字
+        const nameX = 120
+        // let eNameX = 0
+        ctx.font = '36px sans-serif'
+        ctx.fillStyle = '#323232'
+        ctx.fillText(this[`${side}Form`].name, nameX, 150)
+        const nameW = ctx.measureText(this[`${side}Form`].name).width
+        ctx.save()
+        // 英文名字
+        ctx.font = '20px sans-serif'
+        ctx.fillStyle = '#323232'
+        ctx.fillText(this[`${side}Form`].e_name, nameX + nameW + 20, 150)
+        ctx.save()
+        // phone icon
+        ctx.font = '16px Material Symbols Outlined'
+        ctx.fillStyle = this.colorItem
+        ctx.fillText('phone_iphone', 120, 225)
+        // phone
+        ctx.font = '14px sans-serif'
+        ctx.fillStyle = this.colorItem
+        ctx.fillText('手機 |', 145, 223)
+        ctx.fillStyle = '#323232'
+        ctx.fillText(this[`${side}Form`].phone, 200, 223)
+        ctx.save()
+        // email icon
+        ctx.font = '16px Material Symbols Outlined'
+        ctx.fillStyle = this.colorItem
+        ctx.fillText('mail', 120, 256)
+        // email
+        ctx.font = '14px sans-serif'
+        ctx.fillStyle = this.colorItem
+        ctx.fillText('信箱 |', 145, 253)
+        ctx.fillStyle = '#323232'
+        ctx.fillText(this[`${side}Form`].email, 200, 253)
+        ctx.save()
+      } else {
+        const nameX = 120
+        // 名字
+        ctx.font = '28px sans-serif'
+        ctx.fillStyle = '#323232'
+        ctx.fillText(this[`${side}Form`].name, nameX, 150)
+        const nameW = ctx.measureText(this[`${side}Form`].name).width
+        // 英文名字
+        ctx.font = '20px sans-serif'
+        ctx.fillStyle = '#323232'
+        ctx.fillText(this[`${side}Form`].e_name, nameX + nameW + 20, 150)
+        ctx.save()
+        // phone icon
+        ctx.font = '16px Material Symbols Outlined'
+        ctx.fillStyle = this.colorItem
+        ctx.fillText('phone_iphone', 120, 225)
+        // phone
+        ctx.font = '14px sans-serif'
+        ctx.fillStyle = this.colorItem
+        ctx.fillText('Phone |', 145, 223)
+        ctx.save()
+        ctx.font = '14px sans-serif'
+        ctx.fillStyle = '#323232'
+        ctx.fillText(this[`${side}Form`].phone, 215, 223)
+        ctx.save()
+        // email icon
+        ctx.font = '16px Material Symbols Outlined'
+        ctx.fillStyle = this.colorItem
+        ctx.fillText('mail', 120, 256)
+        // email
+        ctx.font = '14px sans-serif'
+        ctx.fillStyle = this.colorItem
+        ctx.fillText('Email  |', 145, 253)
+        ctx.fillStyle = '#323232'
+        ctx.fillText(this[`${side}Form`].email, 215, 253)
+        ctx.save()
+      }
 
       ctx.restore()
 
-      this.dataURL[side] = canvas.toDataURL()
+      this.dataURL[side] = canvas.toDataURL('image/jpeg', 0.5)
+      // const blob = this.dataURItoBlob(dataURL)
+      // this.dataURL[side] = window.URL.createObjectURL(blob)
       this.vueCanvas = ctx
     },
+    dataURItoBlob (dataURI) {
+      // 來源：https://stackoverflow.com/questions/4998908/convert-data-uri-to-file-then-append-to-formdata
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      let byteString
+      if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+        byteString = atob(dataURI.split(',')[1])
+      } else {
+        byteString = unescape(dataURI.split(',')[1])
+      }
+      // separate out the mime component
+      const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+      // write the bytes of the string to a typed array
+      const ia = new Uint8Array(byteString.length)
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i)
+      }
+
+      return new Blob([ia], { type: mimeString })
+    },
     addToCart (id) {
-      const url = `${this.VUE_APP}/cart`
+      this.isLoading = true
+      let url = `${this.VUE_APP}/cart`
       this.$http.get(url)
         .then((res) => {
           this.carts = res.data.data.carts
+
+          let http = 'post'
           // 撈出 carts 裡是否有同 ID 的資料
-          // 有 抓出 將 file 再 push 進去
-          // 沒有 直接 post
           let cartItem = this.carts.find(item => item.product_id === id)
           if (cartItem === undefined) {
             cartItem = { product_id: id, qty: 1, files: [this.dataURL] }
           } else {
+            // 抓出將 file 再 push 進去
+            url = `${url}/${cartItem.id}`
+            http = 'put'
             cartItem.files.push(this.dataURL)
+            cartItem = {
+              product_id: cartItem.product_id,
+              qty: 1,
+              files: cartItem.files
+            }
           }
           // 加入購物車
-          this.$http.post(url, { data: cartItem })
+          this.$http[http](url, { data: cartItem })
             .then((res) => {
+              this.isLoading = false
               // 更新購物車數量
               emitter.emit('cartCount')
-              alert(res.data.message)
+              emitter.emit('sweetalert', `${res.data.message}, success`)
             })
             .catch((err) => {
-              alert(err.response.data.message)
+              emitter.emit('sweetalert', `${err.response.data.message}, error`)
             })
         })
         .catch((err) => {
