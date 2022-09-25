@@ -1,8 +1,8 @@
 @import "~bootstrap/scss/functions";
 
-
 // @import "~bootstrap/scss/bootstrap";
 @import "./helpers/variables";
+@import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/bootstrap";
 
 @import '~sweetalert2/src/variables';

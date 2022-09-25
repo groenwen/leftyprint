@@ -13,10 +13,11 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-4" v-for="item in pords" :key="item.id">
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-xl-4" v-for="item in pords" :key="item.id">
         <div class="card bg-light p-4 mb-4">
           <div class="card-img bg-cover" :style="{backgroundImage: `url(${item.imageUrl})`}">
+            <img src="@/assets/images/card_img.png" alt="">
           </div>
           <div class="card-body">
             <h5 class="card-title fw-light">{{ item.title }}</h5>

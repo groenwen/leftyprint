@@ -18,13 +18,13 @@
                 <span class="lh-1">{{ currProd.description }}</span>
               </div>
             </div>
-            <div class="d-flex align-items-center">
+            <!-- <div class="d-flex align-items-center">
               <span class="material-symbols-outlined fs-1 text-primary me-3">cloud_download</span>
               <div class="d-flex flex-column justify-content-center">
                 <span class="fs-8 lh-1 mb-2 text-primary">版型下載</span>
                 <span class="lh-1">{{ currProd.description }}</span>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-6">

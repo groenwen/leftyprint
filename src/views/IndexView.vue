@@ -40,30 +40,32 @@
           </div>
         </div>
         <div class="row justify-content-center">
-          <div class="col-10">
+          <div class="col col-xxl-10">
             <div class="rounded-3 overflow-hidden">
               <div class="p-5 bg-gray-100">
                 <div class="mb-4">
                   <a href="#" class="btn btn-sm rounded-pill me-2" :class="[isFront ? 'btn-dark' : 'btn-outline-dark']" @click.prevent="isFront = true">正面</a>
                   <a href="#" class="btn btn-sm rounded-pill" :class="[!isFront ? 'btn-dark' : 'btn-outline-dark']" @click.prevent="isFront = false">背面</a>
                 </div>
-                <div class="d-flex align-items-center">
-                  <div class="mt-2 me-3 color-list d-flex flex-column align-items-center align-self-start">
-                    <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#46BAC7' ? 'active' : '']" style="background-color: #46BAC7" @click.prevent="colorItem = '#46BAC7'"></a>
-                    <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F9A44A' ? 'active' : '']" style="background-color: #F9A44A" @click.prevent="colorItem = '#F9A44A'"></a>
-                    <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F37E5F' ? 'active' : '']" style="background-color: #F37E5F" @click.prevent="colorItem = '#F37E5F'"></a>
-                    <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#48A5D9' ? 'active' : '']" style="background-color: #48A5D9" @click.prevent="colorItem = '#48A5D9'"></a>
-                    <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#AF89DF' ? 'active' : '']" style="background-color: #AF89DF" @click.prevent="colorItem = '#AF89DF'"></a>
-                  </div>
-                  <div class="me-4">
-                    <canvas ref="front" class="shadow-sm" v-show="isFront"></canvas>
-                    <canvas ref="back" class="shadow-sm" v-show="!isFront"></canvas>
-                    <div class="d-none">
-                      <img ref="phone_icon" src="@/assets/images/phone_icon.svg" alt="">
-                      <img ref="email_icon" src="@/assets/images/email_icon.svg" alt="">
+                <div class="d-flex flex-xl-row flex-column align-items-center">
+                  <div class="d-flex">
+                    <div class="mt-2 me-3 color-list d-flex flex-lg-column flex-row align-items-center align-self-start">
+                      <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#46BAC7' ? 'active' : '']" style="background-color: #46BAC7" @click.prevent="colorItem = '#46BAC7'"></a>
+                      <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F9A44A' ? 'active' : '']" style="background-color: #F9A44A" @click.prevent="colorItem = '#F9A44A'"></a>
+                      <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F37E5F' ? 'active' : '']" style="background-color: #F37E5F" @click.prevent="colorItem = '#F37E5F'"></a>
+                      <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#48A5D9' ? 'active' : '']" style="background-color: #48A5D9" @click.prevent="colorItem = '#48A5D9'"></a>
+                      <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#AF89DF' ? 'active' : '']" style="background-color: #AF89DF" @click.prevent="colorItem = '#AF89DF'"></a>
+                    </div>
+                    <div class="me-4">
+                      <canvas ref="front" class="shadow-sm" v-show="isFront"></canvas>
+                      <canvas ref="back" class="shadow-sm" v-show="!isFront"></canvas>
+                      <div class="d-none">
+                        <img ref="phone_icon" src="@/assets/images/phone_icon.svg" alt="">
+                        <img ref="email_icon" src="@/assets/images/email_icon.svg" alt="">
+                      </div>
                     </div>
                   </div>
-                  <div class="flex-grow-1">
+                  <div class="flex-grow-1 w-100">
                     <form>
                       <div v-show="isFront">
                         <div class="mb-2 form-floating">
@@ -160,42 +162,45 @@
             <h2 class="mb-0 fw-bolder">專業形象</h2>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
+        <div class="row g-4">
+          <div class="col-12 col-md-6 col-xl-4">
             <div class="card bg-gray-100 p-4 shadow-sm">
               <div class="card-img bg-cover" style="background-image: url('https://images.unsplash.com/photo-1561015314-6bd8c1e875ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1830&q=80');">
+                <img src="@/assets/images/card_img.png" alt="">
               </div>
               <div class="card-body">
                 <h5 class="card-title">名片</h5>
-                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
+                <p class="card-text fs-7 text-secondary">名片、購物須知小卡、商品掉卡，名片不只是名片，發揮你的創意讓他更多變吧！</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
+                  <router-link :to="`/product/-NCAti8kHxLQcFx9Otn9`" class="card-link btn btn-sm btn-outline-secondary stretched-link">查看產品</router-link>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-6 col-xl-4">
             <div class="card bg-gray-100 p-4 shadow-sm">
               <div class="card-img bg-cover" style="background-image: url('https://images.unsplash.com/photo-1644352739408-a191ed85e513?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1658&q=80');">
+                <img src="@/assets/images/card_img.png" alt="">
               </div>
               <div class="card-body">
-                <h5 class="card-title">名片</h5>
-                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
+                <h5 class="card-title">傳單 / DM</h5>
+                <p class="card-text fs-7 text-secondary">A5 ( G16K ) 廣告宣傳</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
+                  <router-link :to="`/product/-NCU9Ky45ulZ5rOzYU-5`" class="card-link btn btn-sm btn-outline-secondary stretched-link">查看產品</router-link>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-6 col-xl-4">
             <div class="card bg-gray-100 p-4 shadow-sm">
               <div class="card-img bg-cover" style="background-image: url('https://images.unsplash.com/photo-1567473030492-533b30c5494c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1760&q=80');">
+                <img src="@/assets/images/card_img.png" alt="">
               </div>
               <div class="card-body">
-                <h5 class="card-title">信封</h5>
-                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
+                <h5 class="card-title">西式信封</h5>
+                <p class="card-text fs-7 text-secondary">婚禮信封、日常小卡裝載，用途多種發揮你的創意吧！</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
+                  <router-link :to="`/product/-NCOZyXvGY3qcVjBB7EF`" class="card-link btn btn-sm btn-outline-secondary stretched-link">查看產品</router-link>
                 </div>
               </div>
             </div>
@@ -203,9 +208,9 @@
         </div>
       </div>
     </section>
-    <section style="background:linear-gradient(120deg, #F0F3FA 55%, rgba(240, 243, 250, 0.1) 75%, rgba(240, 243, 250, 0.5) 99%), url(https://images.unsplash.com/photo-1561015314-6bd8c1e875ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80) right bottom 30% / 50% no-repeat;">
+    <section style="background:linear-gradient(120deg, #F0F3FA 55%, rgba(240, 243, 250, 0.1) 75%, rgba(240, 243, 250, 0.5) 99%), url(https://images.unsplash.com/photo-1561015314-6bd8c1e875ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80) right bottom 30% / auto 150% no-repeat;">
       <div class="container">
-        <div class="d-flex align-items-center">
+        <div class="d-lg-flex align-items-center">
           <div class="me-7">
             <h2 class="mb-3 fw-bolder">特殊尺寸</h2>
             <p>輸入欲印製的尺寸，取得模數後，<br>
@@ -246,42 +251,45 @@
             <h2 class="mb-0 fw-bolder">生活印象</h2>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
+        <div class="row g-4">
+          <div class="col-12 col-md-6 col-xl-4">
             <div class="card bg-gray-100 p-4 shadow-sm">
               <div class="card-img bg-cover" style="background-image: url('https://images.unsplash.com/photo-1612599316791-451087c7fe15?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1724&q=80');">
+                <img src="@/assets/images/card_img.png" alt="">
               </div>
               <div class="card-body">
-                <h5 class="card-title">名片</h5>
-                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
+                <h5 class="card-title">筆記本</h5>
+                <p class="card-text fs-7 text-secondary">校園筆記本、紀念筆記本，贈品實用</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
+                  <router-link :to="`/product/-NCObnRMG1BlFnGc7TW2`" class="card-link btn btn-sm btn-outline-secondary stretched-link">查看產品</router-link>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-6 col-xl-4">
             <div class="card bg-gray-100 p-4 shadow-sm">
               <div class="card-img bg-cover" style="background-image: url('https://storage.googleapis.com/vue-course-api.appspot.com/groen/1663654149646.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=eTKYldy%2BVa%2BAdaO1WrzR6D%2Bw1cPD%2B5iYwrRJqi0ww5DGzdoCUI1f%2BTyX09Yki5stbOUaYP8DYXvbYNpJCnNkCOi1Vp1wolLxM45RYalLsodpGoKkZUcn0KOV3OyBkKmMT9EKz%2Fa%2F5BqK97dNYC05CXMFYFO5CRk0OWnsBFSIqhDAzl36ZzWi5q3dIPrWiHsVptcYgoBtqGgm9EnUv7uNoT4B77zyxpunc%2BU3daHsbezaYvJ8CqeOmKFSSYochblKmSJHO%2Fx9lzNj1%2BIBNwWXgvWMDkfQyNcTjyqO2UALxxm%2FraQ2kpUxaXKBEWyq3RuGOBY36fTtHnGwIWs3A4IDhA%3D%3D');">
+                <img src="@/assets/images/card_img.png" alt="">
               </div>
               <div class="card-body">
-                <h5 class="card-title">名片</h5>
-                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
+                <h5 class="card-title">卡片</h5>
+                <p class="card-text fs-7 text-secondary">傳達你的心意</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
+                  <router-link :to="`/product/-NCOW_nPIKrtdofEj_Uk`" class="card-link btn btn-sm btn-outline-secondary stretched-link">查看產品</router-link>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-6 col-xl-4">
             <div class="card bg-gray-100 p-4 shadow-sm">
               <div class="card-img bg-cover" style="background-image: url('https://images.unsplash.com/photo-1617912760717-06f3976cf18c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80');">
+                <img src="@/assets/images/card_img.png" alt="">
               </div>
               <div class="card-body">
-                <h5 class="card-title">信封</h5>
-                <p class="card-text fs-7 text-secondary">名片、集點卡，提供多種材質選擇</p>
+                <h5 class="card-title">紙膠帶</h5>
+                <p class="card-text fs-7 text-secondary">選用日本和紙紙膠帶，你的手帳也可以很特別！</p>
                 <div class="text-end">
-                  <a href="#" class="btn btn-sm btn-outline-secondary stretched-link">查看產品</a>
+                  <router-link :to="`/product/-NCOa4yQDlRblXcRuf1t`" class="card-link btn btn-sm btn-outline-secondary stretched-link">查看產品</router-link>
                 </div>
               </div>
             </div>
@@ -339,9 +347,6 @@ $primary: #6C93F9;
   height: 0;
   border: 10px solid;
   border-color: $primary transparent transparent transparent;
-}
-.card-img {
-  height: 300px;
 }
 </style>
 <script>

@@ -41,19 +41,6 @@
                 </div>
               </div>
             </div>
-            <div class="px-4 py-3 border-top">
-              <div class="row justify-content-end">
-                <label for="code" class="col-auto form-label">
-                  <span class="material-symbols-outlined me-2 fs-4 lh-1 align-top">confirmation_number</span>折扣碼
-                </label>
-                <div class="col-auto">
-                  <input name="code" id="code" type="text" class="form-control form-control-sm" v-model="code" placeholder="輸入折扣碼" />
-                </div>
-                <div class="col-auto">
-                  <button @click="useCoupon" class="btn btn-sm btn-secondary">使用</button>
-                </div>
-              </div>
-            </div>
           </div>
           <div class="border">
             <div class="px-4 py-2 text-primary fw-bold bg-gray-100">
@@ -137,8 +124,7 @@ export default {
           address: ''
         },
         message: ''
-      },
-      code: ''
+      }
     }
   },
   components: {
@@ -233,16 +219,6 @@ export default {
         })
         .catch((err) => {
           this.isLoading = false
-          emitter.emit('sweetalert', `${err.response.data.message}, error`)
-        })
-    },
-    useCoupon () {
-      const url = `${this.VUE_APP}/coupon`
-      this.$http.post(url, { data: { code: this.code } })
-        .then((res) => {
-          this.final_total = res.data.data.final_total
-        })
-        .catch((err) => {
           emitter.emit('sweetalert', `${err.response.data.message}, error`)
         })
     },
