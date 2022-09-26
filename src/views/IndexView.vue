@@ -377,8 +377,6 @@ export default {
         front: '',
         back: ''
       },
-      businessCardW: 0,
-      businessCardH: 0,
       colorItem: '#46BAC7',
       frontForm: {
         company: '雲端印刷',
@@ -409,20 +407,6 @@ export default {
         this.createCanvas('back')
       }
     },
-    businessCardW: {
-      handler (newVal, oldVal) {
-        console.log('hello')
-        this.createCanvas('front')
-        this.createCanvas('back')
-      }
-    },
-    businessCardH: {
-      handler (newVal, oldVal) {
-        console.log('hello')
-        this.createCanvas('front')
-        this.createCanvas('back')
-      }
-    },
     frontForm: {
       handler (newVal, oldVal) {
         this.createCanvas('front')
@@ -444,18 +428,18 @@ export default {
     createCanvas (side) {
       const canvas = this.$refs[side]
       // console.log(businessCardW)
-      canvas.width = this.businessCardW
-      canvas.height = this.businessCardH
+      canvas.width = 590
+      canvas.height = 360
       const ctx = canvas.getContext('2d')
 
       // 先設定顏色 再繪製位置及尺寸
       ctx.fillStyle = '#fff'
-      ctx.fillRect(0, 0, this.businessCardW, this.businessCardH)
+      ctx.fillRect(0, 0, 590, 360)
       ctx.save()
 
       ctx.fillStyle = this.colorItem
-      ctx.fillRect(0, 315, this.businessCardW, 45)
-      ctx.fillRect(0, 308, this.businessCardW, 2)
+      ctx.fillRect(0, 315, 590, 45)
+      ctx.fillRect(0, 308, 590, 2)
       ctx.save()
 
       ctx.restore()
@@ -631,8 +615,6 @@ export default {
     }
   },
   mounted () {
-    this.businessCardW = this.$refs.businessCard.offsetWidth
-    this.businessCardH = this.$refs.businessCard.offsetHeight
     this.createCanvas('front')
     this.createCanvas('back')
     this.caluMode()
