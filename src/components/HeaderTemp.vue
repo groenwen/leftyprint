@@ -26,6 +26,10 @@
 <style lang="scss">
 .nav-link {
   margin-left: 1rem;
+  @include media-breakpoint-down(md) {
+    width: fit-content;
+    margin-top: 1rem;
+  }
 }
 </style>
 <script>

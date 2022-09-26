@@ -313,8 +313,6 @@
 
 <style lang="scss">
 
-$primary: #6C93F9;
-
 .carousel-caption {
   left: auto;
   right: 15%;

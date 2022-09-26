@@ -3,5 +3,14 @@ module.exports = defineConfig({
   transpileDependencies: true
 })
 module.exports = {
-  publicPath: './'
+  publicPath: './',
+  css: {
+    loaderOptions: {
+      scss: {
+        additionalData: `
+          @import "~@/assets/stylesheets/all.scss";
+        `
+      }
+    }
+  }
 }

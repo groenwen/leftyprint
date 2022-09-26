@@ -6,8 +6,8 @@
       <span class="align-middle">購物車</span>
     </h1>
     <v-form ref="form" v-slot="{ errors }" @submit="onSubmit">
-      <div class="row">
-        <div class="col-8">
+      <div class="row g-4">
+        <div class="col-lg-8 col-12">
           <div class="mb-3 border">
             <div class="px-4 py-2 bg-gray-100 fw-bold d-flex justify-content-between border-bottom">
               <span class="text-primary">項目</span>
@@ -17,22 +17,24 @@
               <p class="p-4 text-secondary" v-if="carts.length <= 0">購物車尚無內容</p>
               <div v-else>
                 <div v-for="item in carts" :key="item.id" class="p-4 d-flex justify-content-between align-items-center">
-                  <div>
-                    <div v-if="item.files === undefined" style="height: 100px;">
-                      &nbsp;
+                  <div class="d-xl-flex">
+                    <div class="mb-xl-0 mb-4 me-3">
+                      <div v-if="item.files === undefined" style="height: 100px;">
+                        &nbsp;
+                      </div>
+                      <div v-else>
+                        <img :src="item.files[0].front" class="border" height="100" alt="">&nbsp;
+                        <img :src="item.files[0].back" class="border" height="100" alt="">
+                      </div>
                     </div>
-                    <div v-else>
-                      <img :src="item.files[0].front" class="border" height="100" alt="">&nbsp;
-                      <img :src="item.files[0].back" class="border" height="100" alt="">
+                    <div>
+                      <span class="fw-bold mb-2">{{ item.product.title }}</span><br>
+                      <span class="text-secondary fs-7">{{ item.product.width }} mm X {{item.product.height }} mm <br>
+                      {{ item.product.side }} ／ {{ item.product.material }} ／ {{ item.product.p_qty }} {{ item.product.unit }}
+                      </span>
                     </div>
                   </div>
-                  <div>
-                    <span class="fw-bold mb-2">{{ item.product.title }}</span><br>
-                    <span class="text-secondary fs-7">{{ item.product.width }} mm X {{item.product.height }} mm <br>
-                    {{ item.product.side }} ／ {{ item.product.material }} ／ {{ item.product.p_qty }} {{ item.product.unit }}
-                    </span>
-                  </div>
-                  <div>$ {{ item.product.price }}</div>
+                  <div class="text-nowrap">$ {{ item.product.price }}</div>
                   <div>
                     <a href="#" class="btn btn-sm btn-link" @click.prevent="delCart(item, item.files[0].id)">
                       <span class="material-symbols-outlined align-middle">delete</span>
@@ -47,7 +49,7 @@
               收件人
             </div>
             <div class="py-4 row justify-content-center">
-              <div class="col-6">
+              <div class="col-xl-6 col-sm-8 col-10">
                   <div class="mb-2">
                     <label for="name" class="form-label fs-7">姓名</label>
                     <v-field name="姓名" id="name" type="text" rules="required" class="form-control" :class="{ 'is-invalid':errors['姓名'] }" v-model="order.user.name" placeholder="填入姓名" />
@@ -76,7 +78,7 @@
             </div>
           </div>
         </div>
-        <div class="col">
+        <div class="col-lg col-12">
           <div class="border bg-gray-100 sticky-top">
             <div class="p-2 text-center bg-gray-200">
               訂單摘要
