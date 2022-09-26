@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
+    <nav class="navbar navbar-expand-md navbar-light bg-white">
       <div class="container">
         <router-link to="/" class="navbar-brand"><img src="@/assets/images/logo.svg" height="28" alt=""></router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

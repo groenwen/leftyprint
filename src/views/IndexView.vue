@@ -42,7 +42,7 @@
         <div class="row justify-content-center">
           <div class="col col-xxl-10">
             <div class="rounded-3 overflow-hidden">
-              <div class="p-5 bg-gray-100">
+              <div class="p-sm-5 p-4 bg-gray-100">
                 <div class="mb-4">
                   <a href="#" class="btn btn-sm rounded-pill me-2" :class="[isFront ? 'btn-dark' : 'btn-outline-dark']" @click.prevent="isFront = true">正面</a>
                   <a href="#" class="btn btn-sm rounded-pill" :class="[!isFront ? 'btn-dark' : 'btn-outline-dark']" @click.prevent="isFront = false">背面</a>
@@ -50,14 +50,14 @@
                 <div class="row align-items-start">
                   <div class="col-xl-8 col-12">
                     <div class="d-flex flex-lg-row flex-column align-items-start">
-                      <div class="mt-2 me-3 color-list d-flex flex-lg-column flex-row align-items-center align-self-start">
-                        <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#46BAC7' ? 'active' : '']" style="background-color: #46BAC7" @click.prevent="colorItem = '#46BAC7'"></a>
-                        <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F9A44A' ? 'active' : '']" style="background-color: #F9A44A" @click.prevent="colorItem = '#F9A44A'"></a>
-                        <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F37E5F' ? 'active' : '']" style="background-color: #F37E5F" @click.prevent="colorItem = '#F37E5F'"></a>
-                        <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#48A5D9' ? 'active' : '']" style="background-color: #48A5D9" @click.prevent="colorItem = '#48A5D9'"></a>
-                        <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#AF89DF' ? 'active' : '']" style="background-color: #AF89DF" @click.prevent="colorItem = '#AF89DF'"></a>
+                      <div class="order-lg-1 order-2 mt-lg-2 me-lg-3 mb-lg-0 mb-3 color-list d-flex flex-lg-column flex-row justify-content-center align-items-center align-self-start">
+                        <a href="#" class="color-item m-1 border shadow-sm" :class="[colorItem === '#46BAC7' ? 'active' : '']" style="background-color: #46BAC7" @click.prevent="colorItem = '#46BAC7'"></a>
+                        <a href="#" class="color-item m-1 border shadow-sm" :class="[colorItem === '#F9A44A' ? 'active' : '']" style="background-color: #F9A44A" @click.prevent="colorItem = '#F9A44A'"></a>
+                        <a href="#" class="color-item m-1 border shadow-sm" :class="[colorItem === '#F37E5F' ? 'active' : '']" style="background-color: #F37E5F" @click.prevent="colorItem = '#F37E5F'"></a>
+                        <a href="#" class="color-item m-1 border shadow-sm" :class="[colorItem === '#48A5D9' ? 'active' : '']" style="background-color: #48A5D9" @click.prevent="colorItem = '#48A5D9'"></a>
+                        <a href="#" class="color-item m-1 border shadow-sm" :class="[colorItem === '#AF89DF' ? 'active' : '']" style="background-color: #AF89DF" @click.prevent="colorItem = '#AF89DF'"></a>
                       </div>
-                      <div class="me-4 ratio ratio-5x3 mb-xl-0 mb-4">
+                      <div class="order-lg-2 order-1 me-4 mb-xl-0 mb-3 ratio ratio-5x3">
                         <!-- <img class="img-fluid" src="@/assets/images/business_card.png" alt=""> -->
                         <div ref="businessCard" class="canvas-wrap">
                           <canvas ref="front" class="cover-fit shadow-sm" width="100%" height="100%" v-show="isFront"></canvas>
@@ -120,8 +120,8 @@
                   </div>
                 </div>
               </div>
-              <div class="d-flex flex-md-row flex-column align-items-md-center bg-gray-200 px-5 py-3">
-                <span class="text-dark mb-md-0 mb-3">規格 —— 9x5.4cm ／ 雙面一級卡 ／ 300 張</span>
+              <div class="d-flex flex-md-row flex-column align-items-md-center bg-gray-200 px-sm-5 px-4 py-3">
+                <span class="text-dark mb-md-0 mb-3"><span class="text-primary">規格 —</span> 90x54mm ／ 雙面一級卡 ／ 300 張</span>
                 <a href="#" class="btn btn-primary ms-auto" @click.prevent="addToCart('-NCAtlm5RkX8T74O5ILR')">加入購物車</a>
               </div>
             </div>
@@ -219,8 +219,8 @@
     </section>
     <section style="background:linear-gradient(120deg, #F0F3FA 55%, rgba(240, 243, 250, 0.1) 75%, rgba(240, 243, 250, 0.5) 99%), url(https://images.unsplash.com/photo-1561015314-6bd8c1e875ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80) right bottom 30% / auto 150% no-repeat;">
       <div class="container">
-        <div class="d-flex flex-lg-row flex-column align-items-lg-center">
-          <div class="me-7 mb-lg-0 mb-3">
+        <div class="d-flex flex-lg-row flex-column align-items-lg-center px-lg-0 px-3">
+          <div class="me-lg-7 mb-lg-0 mb-3">
             <h2 class="mb-3 fw-bolder">特殊尺寸</h2>
             <p>輸入欲印製的尺寸，取得模數後，<br>
               由專人為你報價 <span class="material-symbols-outlined text-primary me-2 align-middle">drafts</span><a href="mailto:yuwen7005@gmail.com" class="text-link">yuwen7005@gmail.com</a>
@@ -334,30 +334,27 @@
   height: 100%;
   object-fit: cover;
 }
+.color-list {
+  width: 32px;
+  @include media-breakpoint-down(lg){
+    width: 100%;
+    height: 38px;
+  }
+}
 .color-item {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  transition: all .25s;
+  transition: width .25s, height .25s;
   &:hover {
     opacity: .8;
   }
   &.active {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-color: #E5EBFD !important;
   }
-}
-.dialog::before {
-  position: absolute;
-  content: '';
-  left: 50%;
-  top: 100%;
-  width: 0;
-  height: 0;
-  border: 10px solid;
-  border-color: $primary transparent transparent transparent;
 }
 </style>
 <script>
@@ -613,12 +610,12 @@ export default {
     }
   },
   mounted () {
-    this.createCanvas('front')
-    this.createCanvas('back')
     this.caluMode()
     this.isLoading = true
     setTimeout(() => {
       this.isLoading = false
+      this.createCanvas('front')
+      this.createCanvas('back')
     }, 750)
     // this.carousel = new Carousel(this.$refs.pCarousel, {
     //   interval: 2000

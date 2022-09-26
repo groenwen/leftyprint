@@ -14,7 +14,7 @@
             <div class="d-flex align-items-center me-5">
               <span class="material-symbols-outlined fs-1 text-primary me-3">calendar_month</span>
               <div class="d-flex flex-column justify-content-center">
-                <span class="fs-8 lh-1 mb-2 text-primary">工作天數</span>
+                <span class="fs-8 lh-1 mb-2 text-secondary">工作天數</span>
                 <span class="lh-1">{{ currProd.description }}</span>
               </div>
             </div>
@@ -35,7 +35,7 @@
     </div>
   </div>
   <div class="container">
-    <p class="mb-4 text-secondary fs-5"><span class="material-symbols-outlined me-2 fs-2 align-text-bottom">style</span>選擇規格</p>
+    <p class="mb-4 text-secondary fs-5"><span class="material-symbols-outlined me-2 fs-3 align-text-bottom">style</span>選擇規格</p>
     <div class="mb-4">
       <span class="me-3 mb-1 fs-7 text-secondary">尺寸&emsp;&nbsp;</span>
       <a href="#"
@@ -47,7 +47,7 @@
         >{{ item }}
       </a>
     </div>
-    <div class="mb-5">
+    <div class="mb-4">
       <span class="me-3 mb-1 fs-7 text-secondary">單/雙面</span>
       <a href="#"
         v-for="(item, index) in sideList"
@@ -65,11 +65,11 @@
     <div class="mb-4 position-relative" style="min-height: 100px">
       <v-loading :active="isLoading" ></v-loading>
       <div class="bg-light px-4 py-3">
-        <table class="table table-hover">
+        <table class="table table-hover text-center">
           <thead>
             <tr class="text-secondary">
-              <th>尺寸</th>
-              <th>單 / 雙面</th>
+              <th class="text-start ps-4" width="16%">尺寸</th>
+              <th width="16%">單 / 雙面</th>
               <th>材質</th>
               <th>數量</th>
               <th>價格</th>
@@ -77,7 +77,7 @@
           </thead>
           <tbody>
             <tr v-for="item in sortProds" :key="item.id" :class="{'bg-white':this.currProd.id === item.id}" class="position-relative">
-              <th>{{ item.width }}x{{ item.height }}mm</th>
+              <th class="text-start ps-4">{{ item.width }}x{{ item.height }}mm</th>
               <td>{{ item.side }}</td>
               <td class="text-primary">{{ item.material }}</td>
               <td class="text-primary">{{ item.p_qty }} {{ item.unit }}</td>
@@ -89,14 +89,22 @@
         </table>
       </div>
     </div>
-    <div class="pb-4">
+    <div class="mb-4 pt-4 border-top d-flex justify-content-end align-items-center">
+      <span class="me-3 px-4 py-1 fs-7 rounded-pill bg-gray-200 text-secondary">規格</span>
+      <span class="fw-bold me-5">{{ currProd.width }}x{{ currProd.height }}mm ／ {{ currProd.side }} ／ {{ currProd.material }} ／ {{ currProd.p_qty }} 張</span>
+      <span class="text-danger">NT$ <span class="fs-2 fw-bold">{{currProd.price}}</span></span>
+    </div>
+    <div class="mb-4">
       <form @submit.prevent="uploadFile">
-        <div class="row justify-content-end">
+        <div class="row justify-content-end align-items-center">
           <div class="col-auto">
-            <label for="formFile" class="col-form-label" >上傳檔案</label>
+            <!-- <label for="formFile" class="col-form-label" >上傳檔案</label> -->
+            <p class="mb-0 text-secondary">
+              <span class="material-symbols-outlined me-2 fs-3 align-text-bottom">cloud_upload</span>上傳檔案
+            </p>
           </div>
           <div class="col-auto">
-            <input class="form-control" type="file" id="formFile" @change="choseFile">
+            <input class="form-control form-control-sm" type="file" id="formFile" @change="choseFile">
           </div>
           <!-- <div class="col-auto">
             <button class="btn btn-secondary" type="submit" >上傳</button>
@@ -105,20 +113,18 @@
         <!-- <input type="file" id="myFile" name="myFile" accept="image/png, image/jpeg" @change="choseFile"> -->
       </form>
     </div>
-    <div class="mb-5 pt-5 text-end border-top">
-      <p>
-        <span class="me-3 px-4 py-1 fs-7 rounded-pill bg-gray-200 text-secondary">規格</span>
-        {{ currProd.width }}x{{ currProd.height }} mm ／ {{ currProd.side }} ／ {{ currProd.material }} ／ {{ currProd.p_qty }} 張
-      </p>
-      <span class="me-4 text-danger align-middle">NT$<span class="fs-2 fw-bold">{{currProd.price}}</span></span>
-      <a href="#" class="btn btn-primary" @click.prevent="addToCart()" :class="{'disabled' : this.file.name === undefined}">加入購物車</a>
+    <div class="mb-5 text-end">
+      <a href="#" class="btn btn-primary" @click.prevent="addToCart()" :class="{'disabled' : this.file.name === undefined}">
+        <span class="material-symbols-outlined align-text-bottom">shopping_cart</span>
+        加入購物車
+      </a>
     </div>
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex align-items-center">
       <div class="text-center me-5">
-        <img src="@/assets/images/people03.svg" height="100" class="mb-3" alt="">
-        <p>印刷注意事項</p>
+        <img src="@/assets/images/people03.svg" height="80" class="mb-3" alt="">
       </div>
-      <div class="p-4 border border-secondary rounded-3">
+      <div class="p-4 border border-gray-200 rounded-3">
+        <p class="fw-bold">印刷注意事項</p>
         <ul class="small mb-0">
           <li>圖檔解析度請設定300dpi，色彩模式為CMYK</li>
           <li>完稿的檔案須包含出血尺寸。</li>
