@@ -47,25 +47,30 @@
                   <a href="#" class="btn btn-sm rounded-pill me-2" :class="[isFront ? 'btn-dark' : 'btn-outline-dark']" @click.prevent="isFront = true">正面</a>
                   <a href="#" class="btn btn-sm rounded-pill" :class="[!isFront ? 'btn-dark' : 'btn-outline-dark']" @click.prevent="isFront = false">背面</a>
                 </div>
-                <div class="d-flex flex-xl-row flex-column align-items-center">
-                  <div class="d-flex">
-                    <div class="mt-2 me-3 color-list d-flex flex-lg-column flex-row align-items-center align-self-start">
-                      <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#46BAC7' ? 'active' : '']" style="background-color: #46BAC7" @click.prevent="colorItem = '#46BAC7'"></a>
-                      <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F9A44A' ? 'active' : '']" style="background-color: #F9A44A" @click.prevent="colorItem = '#F9A44A'"></a>
-                      <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F37E5F' ? 'active' : '']" style="background-color: #F37E5F" @click.prevent="colorItem = '#F37E5F'"></a>
-                      <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#48A5D9' ? 'active' : '']" style="background-color: #48A5D9" @click.prevent="colorItem = '#48A5D9'"></a>
-                      <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#AF89DF' ? 'active' : '']" style="background-color: #AF89DF" @click.prevent="colorItem = '#AF89DF'"></a>
-                    </div>
-                    <div class="me-4">
-                      <canvas ref="front" class="shadow-sm" v-show="isFront"></canvas>
-                      <canvas ref="back" class="shadow-sm" v-show="!isFront"></canvas>
+                <div class="row align-items-start">
+                  <div class="col-xl-8 col-12">
+                    <div class="d-flex flex-lg-row flex-column align-items-start">
+                      <div class="mt-2 me-3 color-list d-flex flex-lg-column flex-row align-items-center align-self-start">
+                        <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#46BAC7' ? 'active' : '']" style="background-color: #46BAC7" @click.prevent="colorItem = '#46BAC7'"></a>
+                        <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F9A44A' ? 'active' : '']" style="background-color: #F9A44A" @click.prevent="colorItem = '#F9A44A'"></a>
+                        <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#F37E5F' ? 'active' : '']" style="background-color: #F37E5F" @click.prevent="colorItem = '#F37E5F'"></a>
+                        <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#48A5D9' ? 'active' : '']" style="background-color: #48A5D9" @click.prevent="colorItem = '#48A5D9'"></a>
+                        <a href="#" class="color-item mb-2 border shadow-sm" :class="[colorItem === '#AF89DF' ? 'active' : '']" style="background-color: #AF89DF" @click.prevent="colorItem = '#AF89DF'"></a>
+                      </div>
+                      <div class="me-4 ratio ratio-5x3 mb-xl-0 mb-4">
+                        <!-- <img class="img-fluid" src="@/assets/images/business_card.png" alt=""> -->
+                        <div ref="businessCard" class="canvas-wrap">
+                          <canvas ref="front" class="cover-fit shadow-sm" width="100%" height="100%" v-show="isFront"></canvas>
+                          <canvas ref="back" class="cover-fit shadow-sm" width="100%" height="100%" v-show="!isFront"></canvas>
+                        </div>
+                      </div>
                       <div class="d-none">
                         <img ref="phone_icon" src="@/assets/images/phone_icon.svg" alt="">
                         <img ref="email_icon" src="@/assets/images/email_icon.svg" alt="">
                       </div>
                     </div>
                   </div>
-                  <div class="flex-grow-1 w-100">
+                  <div class="col-xl-4 col-12">
                     <form>
                       <div v-show="isFront">
                         <div class="mb-2 form-floating">
@@ -115,8 +120,8 @@
                   </div>
                 </div>
               </div>
-              <div class="d-flex align-items-center bg-gray-200 px-5 py-3">
-                <span class="text-dark">規格 —— 9x5.4cm ／ 雙面一級卡 ／ 300 張</span>
+              <div class="d-flex flex-md-row flex-column align-items-md-center bg-gray-200 px-5 py-3">
+                <span class="text-dark mb-md-0 mb-3">規格 —— 9x5.4cm ／ 雙面一級卡 ／ 300 張</span>
                 <a href="#" class="btn btn-primary ms-auto" @click.prevent="addToCart('-NCAtlm5RkX8T74O5ILR')">加入購物車</a>
               </div>
             </div>
@@ -125,31 +130,35 @@
       </div>
     </section>
     <div class="bg-light py-5">
-      <div class="container d-flex justify-content-center align-items-center">
-        <div class="d-flex align-items-center">
-          <span class="material-symbols-outlined fs-1 me-3">backup</span>
-          <span>套用版型 / 上傳檔案</span>
+      <div class="container d-flex flex-wrap flex-md-nowrap justify-content-center align-items-center">
+        <div class="d-flex align-items-center mb-md-0 mb-4">
+          <div class="d-flex flex-column flex-lg-row align-items-center">
+            <span class="material-symbols-outlined fs-1 me-3">backup</span>
+            <span>套用版型 / 上傳檔案</span>
+          </div>
+          <span class="material-symbols-outlined text-secondary mx-2 mx-lg-4">
+            arrow_forward_ios
+          </span>
+          <div class="d-flex flex-column flex-lg-row align-items-center">
+            <span class="material-symbols-outlined fs-1 me-3">style</span>
+            <span>選擇材質數量</span>
+          </div>
         </div>
-        <span class="material-symbols-outlined text-secondary mx-4">
-          arrow_forward_ios
-        </span>
         <div class="d-flex align-items-center">
-          <span class="material-symbols-outlined fs-1 me-3">style</span>
-          <span>選擇材質數量</span>
-        </div>
-        <span class="material-symbols-outlined mx-4">
-          arrow_forward_ios
-        </span>
-        <div class="d-flex align-items-center">
-          <span class="material-symbols-outlined fs-1 me-3">shopping_cart</span>
-          <span>加入購物車</span>
-        </div>
-        <span class="material-symbols-outlined mx-4">
-          arrow_forward_ios
-        </span>
-        <div class="d-flex align-items-center">
-          <span class="material-symbols-outlined fs-1 me-3">local_shipping</span>
-          <span>宅配到府</span>
+          <span class="material-symbols-outlined mx-2 mx-lg-4">
+            arrow_forward_ios
+          </span>
+          <div class="d-flex flex-column flex-lg-row align-items-center">
+            <span class="material-symbols-outlined fs-1 me-3">shopping_cart</span>
+            <span>加入購物車</span>
+          </div>
+          <span class="material-symbols-outlined mx-2 mx-lg-4">
+            arrow_forward_ios
+          </span>
+          <div class="d-flex flex-column flex-lg-row align-items-center">
+            <span class="material-symbols-outlined fs-1 me-3">local_shipping</span>
+            <span>宅配到府</span>
+          </div>
         </div>
       </div>
     </div>
@@ -210,8 +219,8 @@
     </section>
     <section style="background:linear-gradient(120deg, #F0F3FA 55%, rgba(240, 243, 250, 0.1) 75%, rgba(240, 243, 250, 0.5) 99%), url(https://images.unsplash.com/photo-1561015314-6bd8c1e875ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80) right bottom 30% / auto 150% no-repeat;">
       <div class="container">
-        <div class="d-lg-flex align-items-center">
-          <div class="me-7">
+        <div class="d-flex flex-lg-row flex-column align-items-lg-center">
+          <div class="me-7 mb-lg-0 mb-3">
             <h2 class="mb-3 fw-bolder">特殊尺寸</h2>
             <p>輸入欲印製的尺寸，取得模數後，<br>
               由專人為你報價 <span class="material-symbols-outlined text-primary me-2 align-middle">drafts</span><a href="mailto:yuwen7005@gmail.com" class="text-link">yuwen7005@gmail.com</a>
@@ -220,21 +229,23 @@
           </div>
           <div class="mt-3">
             <form>
-              <div class="d-flex align-items-center">
-                <div class="d-flex me-5">
-                  <label for="modeWidth" class="me-2 pt-1 fs-5 text-center lh-1 fw-bold">
-                    寬<br><span class="fs-8">(mm)</span>
+              <div class="d-flex align-items-end align-items-md-center">
+                <div class="d-flex flex-md-row flex-column me-4 me-md-5">
+                  <label for="modeWidth" class="me-md-2 pt-1 d-flex flex-md-column flex-row fs-5 justify-content-center align-items-center lh-1 fw-bold">
+                    <span class="mb-2 mb-md-0">寬</span>
+                    <span class="fs-8">(mm)</span>
                   </label>
-                  <input type="number" class="form-control fs-5 border-0" id="modeWidth" v-model="mode.width" @keyup="caluMode()" style="width: 120px;">
+                  <input type="number" class="form-control fs-5 border-0" id="modeWidth" v-model="mode.width" @keyup="caluMode()" style="width: 100px;">
                 </div>
-                <div class="d-flex me-5">
-                  <label for="modeHeight" class="me-2 pt-1 fs-5 text-center lh-1 fw-bold">
-                    高<br><span class="fs-8">(mm)</span>
+                <div class="d-flex flex-md-row flex-column me-4 me-md-5">
+                  <label for="modeHeight" class="me-md-2 pt-1 d-flex flex-md-column flex-row fs-5 justify-content-center align-items-center lh-1 fw-bold">
+                    <span class="mb-2 mb-md-0">高</span>
+                    <span class="fs-8">(mm)</span>
                   </label>
-                  <input type="number" class="form-control fs-5 border-0" id="modeHeight" v-model="mode.height" @keyup="caluMode()" style="width: 120px;">
+                  <input type="number" class="form-control fs-5 border-0" id="modeHeight" v-model="mode.height" @keyup="caluMode()" style="width: 100px;">
                 </div>
                 <div class="text-primary">
-                  <span class="fs-1 fw-bold me-2">{{ mode.result }}</span><span>模</span>
+                  <span class="fs-1 fw-bolder me-2">{{ mode.result }}</span><span>模</span>
                 </div>
               </div>
             </form>
@@ -320,8 +331,10 @@ $primary: #6C93F9;
   background-size: cover;
   background-position: center;
 }
-.color-list {
-  width: 30px;
+.cover-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .color-item {
   display: inline-block;
@@ -364,6 +377,8 @@ export default {
         front: '',
         back: ''
       },
+      businessCardW: 0,
+      businessCardH: 0,
       colorItem: '#46BAC7',
       frontForm: {
         company: '雲端印刷',
@@ -390,6 +405,19 @@ export default {
   watch: {
     colorItem: {
       handler (newVal, oldVal) {
+        this.createCanvas('front')
+        this.createCanvas('back')
+      }
+    },
+    businessCardW: {
+      handler (newVal, oldVal) {
+        console.log('hello')
+        this.createCanvas('front')
+        this.createCanvas('back')
+      }
+    },
+    businessCardH: {
+      handler (newVal, oldVal) {
         console.log('hello')
         this.createCanvas('front')
         this.createCanvas('back')
@@ -407,6 +435,7 @@ export default {
       },
       deep: true
     }
+
   },
   components: {
     SweetAlert
@@ -414,18 +443,19 @@ export default {
   methods: {
     createCanvas (side) {
       const canvas = this.$refs[side]
-      canvas.width = 590
-      canvas.height = 360
+      // console.log(businessCardW)
+      canvas.width = this.businessCardW
+      canvas.height = this.businessCardH
       const ctx = canvas.getContext('2d')
 
       // 先設定顏色 再繪製位置及尺寸
       ctx.fillStyle = '#fff'
-      ctx.fillRect(0, 0, 590, 360)
+      ctx.fillRect(0, 0, this.businessCardW, this.businessCardH)
       ctx.save()
 
       ctx.fillStyle = this.colorItem
-      ctx.fillRect(0, 315, 590, 45)
-      ctx.fillRect(0, 308, 590, 2)
+      ctx.fillRect(0, 315, this.businessCardW, 45)
+      ctx.fillRect(0, 308, this.businessCardW, 2)
       ctx.save()
 
       ctx.restore()
@@ -453,6 +483,7 @@ export default {
         ctx.font = '16px Material Symbols Outlined'
         ctx.fillStyle = this.colorItem
         ctx.fillText('phone_iphone', 120, 225)
+        ctx.save()
         // phone
         ctx.font = '14px sans-serif'
         ctx.fillStyle = this.colorItem
@@ -464,6 +495,7 @@ export default {
         ctx.font = '16px Material Symbols Outlined'
         ctx.fillStyle = this.colorItem
         ctx.fillText('mail', 120, 256)
+        ctx.save()
         // email
         ctx.font = '14px sans-serif'
         ctx.fillStyle = this.colorItem
@@ -487,6 +519,7 @@ export default {
         ctx.font = '16px Material Symbols Outlined'
         ctx.fillStyle = this.colorItem
         ctx.fillText('phone_iphone', 120, 225)
+        ctx.save()
         // phone
         ctx.font = '14px sans-serif'
         ctx.fillStyle = this.colorItem
@@ -500,6 +533,7 @@ export default {
         ctx.font = '16px Material Symbols Outlined'
         ctx.fillStyle = this.colorItem
         ctx.fillText('mail', 120, 256)
+        ctx.save()
         // email
         ctx.font = '14px sans-serif'
         ctx.fillStyle = this.colorItem
@@ -597,9 +631,15 @@ export default {
     }
   },
   mounted () {
+    this.businessCardW = this.$refs.businessCard.offsetWidth
+    this.businessCardH = this.$refs.businessCard.offsetHeight
     this.createCanvas('front')
     this.createCanvas('back')
     this.caluMode()
+    this.isLoading = true
+    setTimeout(() => {
+      this.isLoading = false
+    }, 750)
     // this.carousel = new Carousel(this.$refs.pCarousel, {
     //   interval: 2000
     // })

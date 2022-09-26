@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+  <div>
+    <SweetAlert></SweetAlert>
+    <div class="container">
     <p>Dashboard</p>
     <nav class="mb-5">
       <router-link to="/admin">後台首頁</router-link> |
@@ -12,14 +14,20 @@
     </nav>
     <router-view />
   </div>
+  </div>
 </template>
 
 <script>
+import emitter from '@/js/emitter'
+import SweetAlert from '@/components/SweetAlert.vue'
 export default {
   data () {
     return {
 
     }
+  },
+  components: {
+    SweetAlert
   },
   methods: {
     checkAdmin () {
@@ -38,19 +46,19 @@ export default {
           })
           .catch((err) => {
             // 驗證有誤 顯示錯誤訊息 回到登入頁面
-            alert(err.response.data.message)
+            emitter.emit('sweetalert', `${err.response.data.message}, error`)
             this.$router.push('/login')
           })
       } else {
         // 尚未登入 回到登入頁面
-        alert('尚未登入後台')
+        emitter.emit('sweetalert', '尚未登入, info')
         this.$router.push('/login')
       }
     },
     logout () {
       // 移除 token 即代表登出
       document.cookie = 'groenToken=;expires=;'
-      alert('已登出後台')
+      emitter.emit('sweetalert', '已登出, success')
       this.$router.push('/login')
     }
   },

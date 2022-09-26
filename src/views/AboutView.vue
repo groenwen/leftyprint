@@ -1,4 +1,5 @@
 <template>
+  <v-loading :active="isLoading" ></v-loading>
   <div class="container mt-5">
     <div class="row g-0">
       <div class="col-4">
@@ -18,3 +19,18 @@
   height: 300px;
 }
 </style>
+<script>
+export default {
+  data () {
+    return {
+      isLoading: false
+    }
+  },
+  mounted () {
+    this.isLoading = true
+    setTimeout(() => {
+      this.isLoading = false
+    }, 500)
+  }
+}
+</script>
