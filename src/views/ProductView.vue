@@ -4,8 +4,8 @@
   <div class="mb-5 bg-light">
     <div class="container py-4">
       <div class="row justify-content-between">
-        <div class="col-5 align-self-center py-5">
-          <div class="align-content-center pb-4 mb-5 border-bottom">
+        <div class="order-md-1 order-2 col-md-5 col-12 align-self-center py-md-5 py-3">
+          <div class="align-content-center pb-md-4 pb-2 mb-md-5 mb-3 border-bottom">
             <span class="mb-3 d-inline-block px-3 py-2 fs-8 lh-1 text-white bg-secondary rounded-pill position-relative">{{ currProd.category }}</span>
             <h1 class="mb-3 fs-2">{{ currProd.title }}</h1>
             <p>{{ currProd.content }}</p>
@@ -27,8 +27,8 @@
             </div> -->
           </div>
         </div>
-        <div class="col-6">
-          <div class="bg-cover h-100" :style="{backgroundImage: `url(${currProd.imageUrl})`}">
+        <div class="order-md-2 order-1 col-md-6 col-12">
+          <div class="bg-cover h-100" style="min-height: 300px" :style="{backgroundImage: `url(${currProd.imageUrl})`}">
         </div>
         </div>
       </div>
@@ -64,11 +64,11 @@
     </div>
     <div class="mb-4 position-relative" style="min-height: 100px">
       <v-loading :active="isLoading" ></v-loading>
-      <div class="bg-light px-4 py-3">
+      <div class="bg-light px-md-4 px-2 py-3">
         <table class="table table-hover text-center">
           <thead>
             <tr class="text-secondary">
-              <th class="text-start ps-4" width="16%">尺寸</th>
+              <th class="text-start ps-md-4" width="16%">尺寸</th>
               <th width="16%">單 / 雙面</th>
               <th>材質</th>
               <th>數量</th>
@@ -77,7 +77,7 @@
           </thead>
           <tbody>
             <tr v-for="item in sortProds" :key="item.id" :class="{'bg-white':this.currProd.id === item.id}" class="position-relative">
-              <th class="text-start ps-4">{{ item.width }}x{{ item.height }}mm</th>
+              <th class="text-start ps-md-4">{{ item.width }}x{{ item.height }}mm</th>
               <td>{{ item.side }}</td>
               <td class="text-primary">{{ item.material }}</td>
               <td class="text-primary">{{ item.p_qty }} {{ item.unit }}</td>
@@ -89,17 +89,17 @@
         </table>
       </div>
     </div>
-    <div class="mb-4 pt-4 border-top d-flex justify-content-end align-items-center">
-      <span class="me-3 px-4 py-1 fs-7 rounded-pill bg-gray-200 text-secondary">規格</span>
-      <span class="fw-bold me-5">{{ currProd.width }}x{{ currProd.height }}mm ／ {{ currProd.side }} ／ {{ currProd.material }} ／ {{ currProd.p_qty }} 張</span>
+    <div class="mb-4 pt-4 border-top d-flex flex-md-row flex-column justify-content-md-end align-items-md-center align-items-start">
+      <span class="mb-md-0 mb-2 me-3 px-4 py-1 fs-7 rounded-pill bg-gray-200 text-secondary">規格</span>
+      <span class="fw-bold me-md-5">{{ currProd.width }}x{{ currProd.height }}mm ／ {{ currProd.side }} ／ {{ currProd.material }} ／ {{ currProd.p_qty }} 張</span>
       <span class="text-danger">NT$ <span class="fs-2 fw-bold">{{currProd.price}}</span></span>
     </div>
     <div class="mb-4">
       <form @submit.prevent="uploadFile">
-        <div class="row justify-content-end align-items-center">
+        <div class="row justify-content-md-end justify-content-start align-items-center">
           <div class="col-auto">
             <!-- <label for="formFile" class="col-form-label" >上傳檔案</label> -->
-            <p class="mb-0 text-secondary">
+            <p class="mb-md-0 mb-2 text-secondary">
               <span class="material-symbols-outlined me-2 fs-3 align-text-bottom">cloud_upload</span>上傳檔案
             </p>
           </div>
@@ -119,7 +119,7 @@
         加入購物車
       </a>
     </div>
-    <div class="d-flex align-items-center">
+    <div class="d-sm-flex align-items-center">
       <div class="text-center me-5">
         <img src="@/assets/images/people03.svg" height="80" class="mb-3" alt="">
       </div>

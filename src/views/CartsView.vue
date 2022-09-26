@@ -2,7 +2,8 @@
   <v-loading :active="isLoading" ></v-loading>
   <SweetAlert></SweetAlert>
   <div class="container mt-5">
-    <h1 class=" fs-3 text-dark text-center">
+    <h1 class=" fs-3 text-dark">
+      <img src="@/assets/images/people03.svg" class="me-3" height="55" alt="">
       <span class="align-middle">購物車</span>
     </h1>
     <v-form ref="form" v-slot="{ errors }" @submit="onSubmit">
@@ -10,7 +11,7 @@
         <div class="col-lg-8 col-12">
           <div class="mb-3 border">
             <div class="px-4 py-2 bg-gray-100 fw-bold d-flex justify-content-between border-bottom">
-              <span class="text-primary">項目</span>
+              <span>項目</span>
               <button class="btn btn-sm btn-outline-secondary" @click="clearCarts()" :disabled="carts.length <= 0">清除購物車</button>
             </div>
             <div>
@@ -45,7 +46,7 @@
             </div>
           </div>
           <div class="border">
-            <div class="px-4 py-2 text-primary fw-bold bg-gray-100">
+            <div class="px-4 py-2 fw-bold bg-gray-100">
               收件人
             </div>
             <div class="py-4 row justify-content-center">
