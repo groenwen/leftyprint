@@ -1,25 +1,27 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-      <router-link to="/" class="navbar-brand"><img src="@/assets/images/logo.svg" height="28" alt=""></router-link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
-          <router-link to="/about" class="nav-link">關於 Print</router-link>
-          <router-link to="/products" class="nav-link">所有產品</router-link>
-          <router-link to="/carts" class="nav-link position-relative pe-1">
-            <span class="material-symbols-outlined">shopping_cart</span>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              {{carts?.length}}
-              <span class="visually-hidden">unread messages</span>
-            </span>
-          </router-link>
+  <div>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
+      <div class="container">
+        <router-link to="/" class="navbar-brand"><img src="@/assets/images/logo.svg" height="28" alt=""></router-link>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto">
+            <router-link to="/about" class="nav-link">關於 Print</router-link>
+            <router-link to="/products" class="nav-link">所有產品</router-link>
+            <router-link to="/carts" class="nav-link position-relative pe-1">
+              <span class="material-symbols-outlined">shopping_cart</span>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{carts?.length}}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </router-link>
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </template>
 <style lang="scss">
 .nav-link {
@@ -27,6 +29,7 @@
 }
 </style>
 <script>
+import 'bootstrap/js/dist/collapse.js'
 import emitter from '@/js/emitter'
 export default {
   data () {
