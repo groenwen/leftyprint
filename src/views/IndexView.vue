@@ -3,21 +3,33 @@
   <SweetAlert></SweetAlert>
   <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active" style="background-image: url(https://images.unsplash.com/photo-1573673601222-53e378f40f70?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80)">
-        <div class="carousel-caption d-none d-md-block px-5 py-4 bg-dark bg-opacity-25">
-          <h3 class="ff-serif">複雜的事我們處理好了，<br>簡單的事交給你</h3>
+      <div class="carousel-item active" style="background-image: url(https://github.com/groenwen/images/blob/main/banner01.jpg?raw=true)">
+        <div class="container h-100 d-flex align-items-center">
+          <div class="carousel-text p-4 m-sm-0 m-5">
+            <span class="mb-4 px-3 pt-2 pb-1 lh-1 d-inline-block bg-white rounded-pill"># 信封</span>
+            <h2 class="mb-4 fs-1" style="line-height: 1.5;">複雜的事我們處理好了，<span class="d-sm-block d-inline">簡單的事交給你</span></h2>
+            <p>線上交付檔案、專人校稿、少量印製、宅配到府！</p>
+          </div>
         </div>
       </div>
-      <div class="carousel-item" style="background-image: url(https://images.unsplash.com/photo-1573763665563-6e377217d29b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80)">
-        <div class="carousel-caption d-none d-md-block px-5 py-4 bg-dark bg-opacity-25">
-          <h3 class="ff-serif">複雜的事我們處理好了，<br>簡單的事交給你</h3>
+      <div class="carousel-item" style="background-image: url(https://github.com/groenwen/images/blob/main/banner02.jpg?raw=true)">
+        <div class="container h-100 d-flex align-items-center">
+          <div class="carousel-text p-4 m-sm-0 m-5">
+            <span class="mb-4 px-3 pt-2 pb-1 lh-1 d-inline-block bg-white rounded-pill"># 手冊</span>
+            <h2 class="mb-4 fs-1" style="line-height: 1.5;">複雜的事我們處理好了，<span class="d-sm-block d-inline">簡單的事交給你</span></h2>
+            <p>線上交付檔案、專人校稿、少量印製、宅配到府！</p>
+          </div>
         </div>
       </div>
-      <!-- <div class="carousel-item" style="background-image: url(https://images.unsplash.com/photo-1500051638674-ff996a0ec29e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1518&q=80)">
-        <div class="carousel-caption d-none d-md-block px-5 py-4 bg-dark bg-opacity-25">
-          <h3 class="ff-serif">複雜的事我們處理好了，<br>簡單的事交給你</h3>
+      <div class="carousel-item" style="background-image: url(https://github.com/groenwen/images/blob/main/banner03.jpg?raw=true)">
+        <div class="container h-100 d-flex align-items-center">
+          <div class="carousel-text p-4 m-sm-0 m-5">
+            <span class="mb-4 px-3 pt-2 pb-1 lh-1 d-inline-block bg-white rounded-pill"># DM</span>
+            <h2 class="mb-4 fs-1" style="line-height: 1.5;">複雜的事我們處理好了，<span class="d-sm-block d-inline">簡單的事交給你</span></h2>
+            <p>線上交付檔案、專人校稿、少量印製、宅配到府！</p>
+          </div>
         </div>
-      </div> -->
+      </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -134,7 +146,7 @@
         <div class="d-flex align-items-center mb-md-0 mb-4">
           <div class="d-flex flex-column flex-lg-row align-items-center">
             <span class="material-symbols-outlined fs-1 me-3">backup</span>
-            <span>套用版型 / 上傳檔案</span>
+            <span>套用版型 / <span class="d-sm-inline d-block">上傳檔案</span></span>
           </div>
           <span class="material-symbols-outlined text-secondary mx-2 mx-lg-4">
             arrow_forward_ios
@@ -312,22 +324,20 @@
 </template>
 
 <style lang="scss">
-
-.carousel-caption {
-  left: auto;
-  right: 15%;
-  top: 50%;
-  bottom: auto;
-  transform: translateY(-50%);
-  h3 {
-    text-align: left;
-    line-height: 200%;
-  }
-}
 .carousel-item {
   height: 500px;
   background-size: cover;
-  background-position: center;
+  background-position: right center;
+  background-repeat: no-repeat;
+  @include media-breakpoint-down(sm) {
+    height: auto;
+    background-position: right 40% center;
+  }
+}
+.carousel-text {
+  @include media-breakpoint-down(lg) {
+    background-color: rgba(#fff, .65);
+  }
 }
 .cover-fit {
   width: 100%;
