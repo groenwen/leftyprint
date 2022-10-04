@@ -2,6 +2,9 @@ import { createApp } from 'vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+// google material-symbols
+import 'material-symbols'
+
 // 驗證
 import { Field, Form, ErrorMessage, defineRule, configure } from 'vee-validate'
 // 驗證規則
@@ -17,9 +20,6 @@ import 'vue-loading-overlay/dist/vue-loading.css'
 // sweetalert
 import SweetAlert from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
-
-// google material-symbols
-import 'material-symbols'
 
 import App from './App.vue'
 

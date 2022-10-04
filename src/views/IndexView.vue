@@ -472,28 +472,28 @@ export default {
         ctx.fillText(this[`${side}Form`].e_name, nameX + nameW + 20, 150)
         ctx.save()
         // phone icon
-        ctx.font = '16px Material Symbols Outlined'
-        ctx.fillStyle = this.colorItem
-        ctx.fillText('phone_iphone', 120, 225)
-        ctx.save()
+        // ctx.font = '16px Material Symbols Outlined'
+        // ctx.fillStyle = this.colorItem
+        // ctx.fillText('phone_iphone', 120, 225)
+        // ctx.save()
         // phone
         ctx.font = '14px sans-serif'
         ctx.fillStyle = this.colorItem
-        ctx.fillText('手機 |', 145, 223)
+        ctx.fillText('手機 |', 120, 223) // 145
         ctx.fillStyle = '#323232'
-        ctx.fillText(this[`${side}Form`].phone, 200, 223)
+        ctx.fillText(this[`${side}Form`].phone, 175, 223) // 200
         ctx.save()
         // email icon
-        ctx.font = '16px Material Symbols Outlined'
-        ctx.fillStyle = this.colorItem
-        ctx.fillText('mail', 120, 256)
-        ctx.save()
+        // ctx.font = '16px Material Symbols Outlined'
+        // ctx.fillStyle = this.colorItem
+        // ctx.fillText('mail', 120, 256)
+        // ctx.save()
         // email
         ctx.font = '14px sans-serif'
         ctx.fillStyle = this.colorItem
-        ctx.fillText('信箱 |', 145, 253)
+        ctx.fillText('信箱 |', 120, 253) // 145
         ctx.fillStyle = '#323232'
-        ctx.fillText(this[`${side}Form`].email, 200, 253)
+        ctx.fillText(this[`${side}Form`].email, 175, 253) // 200
         ctx.save()
       } else {
         const nameX = 120
@@ -508,30 +508,30 @@ export default {
         ctx.fillText(this[`${side}Form`].e_name, nameX + nameW + 20, 150)
         ctx.save()
         // phone icon
-        ctx.font = '16px Material Symbols Outlined'
-        ctx.fillStyle = this.colorItem
-        ctx.fillText('phone_iphone', 120, 225)
-        ctx.save()
+        // ctx.font = '16px Material Symbols Outlined'
+        // ctx.fillStyle = this.colorItem
+        // ctx.fillText('phone_iphone', 120, 225)
+        // ctx.save()
         // phone
         ctx.font = '14px sans-serif'
         ctx.fillStyle = this.colorItem
-        ctx.fillText('Mobile |', 145, 223)
+        ctx.fillText('Mobile |', 120, 223) // 145
         ctx.save()
         ctx.font = '14px sans-serif'
         ctx.fillStyle = '#323232'
-        ctx.fillText(this[`${side}Form`].phone, 218, 223)
+        ctx.fillText(this[`${side}Form`].phone, 193, 223) // 218
         ctx.save()
         // email icon
-        ctx.font = '16px Material Symbols Outlined'
-        ctx.fillStyle = this.colorItem
-        ctx.fillText('mail', 120, 256)
-        ctx.save()
+        // ctx.font = '16px Material Symbols Outlined'
+        // ctx.fillStyle = this.colorItem
+        // ctx.fillText('mail', 120, 256)
+        // ctx.save()
         // email
         ctx.font = '14px sans-serif'
         ctx.fillStyle = this.colorItem
-        ctx.fillText('Email   |', 147, 253)
+        ctx.fillText('Email   |', 120, 253) // 147
         ctx.fillStyle = '#323232'
-        ctx.fillText(this[`${side}Form`].email, 218, 253)
+        ctx.fillText(this[`${side}Form`].email, 191, 253) // 218
         ctx.save()
       }
 
