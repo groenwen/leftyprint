@@ -627,6 +627,8 @@ export default {
     emitter.emit('cartCount')
     this.caluMode()
     this.isLoading = true
+    this.createCanvas('front')
+    this.createCanvas('back')
     setTimeout(() => {
       this.isLoading = false
       this.createCanvas('front')
