@@ -626,17 +626,13 @@ export default {
     // 更新購物車數量
     emitter.emit('cartCount')
     this.caluMode()
-    this.isLoading = true
+    this.isLoading = false
     this.createCanvas('front')
     this.createCanvas('back')
     setTimeout(() => {
-      this.isLoading = false
       this.createCanvas('front')
       this.createCanvas('back')
     }, 2000)
-    // this.carousel = new Carousel(this.$refs.pCarousel, {
-    //   interval: 2000
-    // })
   }
 }
 </script>
