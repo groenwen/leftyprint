@@ -633,7 +633,7 @@ export default {
       this.isLoading = false
       this.createCanvas('front')
       this.createCanvas('back')
-    }, 1000)
+    }, 2000)
     // this.carousel = new Carousel(this.$refs.pCarousel, {
     //   interval: 2000
     // })
