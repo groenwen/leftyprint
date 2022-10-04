@@ -18,6 +18,9 @@ import 'vue-loading-overlay/dist/vue-loading.css'
 import SweetAlert from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 
+// google material-symbols
+import 'material-symbols'
+
 import App from './App.vue'
 
 // 加入全部規則

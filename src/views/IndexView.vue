@@ -3,30 +3,33 @@
   <SweetAlert></SweetAlert>
   <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active" style="background-image: url(https://github.com/groenwen/images/blob/main/banner01.jpg?raw=true)">
+      <div class="carousel-item active"
+        :style="{ backgroundImage: 'url(' + require('@/assets/images/banner01.jpg') + ')'}">
         <div class="container h-100 d-flex align-items-center">
           <div class="carousel-text p-4 m-sm-0 m-5">
             <span class="mb-4 px-3 pt-2 pb-1 lh-1 d-inline-block bg-white rounded-pill"># 信封</span>
             <h2 class="mb-4 fs-1" style="line-height: 1.5;">複雜的事我們處理好了，<span class="d-sm-block d-inline">簡單的事交給你</span></h2>
-            <p>線上交付檔案、專人校稿、少量印製、宅配到府！</p>
+            <p>線上交付檔案 ⨉ 專人校稿 ⨉ 少量印製 ⨉ 宅配到府</p>
           </div>
         </div>
       </div>
-      <div class="carousel-item" style="background-image: url(https://github.com/groenwen/images/blob/main/banner02.jpg?raw=true)">
+      <div class="carousel-item"
+        :style="{ backgroundImage: 'url(' + require('@/assets/images/banner02.jpg') + ')'}">
         <div class="container h-100 d-flex align-items-center">
           <div class="carousel-text p-4 m-sm-0 m-5">
             <span class="mb-4 px-3 pt-2 pb-1 lh-1 d-inline-block bg-white rounded-pill"># 手冊</span>
             <h2 class="mb-4 fs-1" style="line-height: 1.5;">複雜的事我們處理好了，<span class="d-sm-block d-inline">簡單的事交給你</span></h2>
-            <p>線上交付檔案、專人校稿、少量印製、宅配到府！</p>
+            <p>線上交付檔案 ⨉ 專人校稿 ⨉ 少量印製 ⨉ 宅配到府</p>
           </div>
         </div>
       </div>
-      <div class="carousel-item" style="background-image: url(https://github.com/groenwen/images/blob/main/banner03.jpg?raw=true)">
+      <div class="carousel-item"
+        :style="{ backgroundImage: 'url(' + require('@/assets/images/banner03.jpg') + ')'}">
         <div class="container h-100 d-flex align-items-center">
           <div class="carousel-text p-4 m-sm-0 m-5">
             <span class="mb-4 px-3 pt-2 pb-1 lh-1 d-inline-block bg-white rounded-pill"># DM</span>
             <h2 class="mb-4 fs-1" style="line-height: 1.5;">複雜的事我們處理好了，<span class="d-sm-block d-inline">簡單的事交給你</span></h2>
-            <p>線上交付檔案、專人校稿、少量印製、宅配到府！</p>
+            <p>線上交付檔案 ⨉ 專人校稿 ⨉ 少量印製 ⨉ 宅配到府</p>
           </div>
         </div>
       </div>
@@ -87,45 +90,45 @@
                       <div v-show="isFront">
                         <div class="mb-2 form-floating">
                           <input type="text" class="form-control" id="frontCompany" v-model="frontForm.company" placeholder="輸入公司名稱">
-                          <label for="frontCompany" class="form-label small">公司名稱</label>
+                          <label for="frontCompany" class="form-label small text-primary">公司名稱</label>
                         </div>
                         <div class="mb-2 form-floating">
                           <input type="text" class="form-control" id="frontName" v-model="frontForm.name" placeholder="輸入名字">
-                          <label for="frontName" class="form-label small">名字</label>
+                          <label for="frontName" class="form-label small text-primary">名字</label>
                         </div>
                         <div class="mb-2 form-floating">
                           <input type="text" class="form-control" id="frontEName" v-model="frontForm.e_name" placeholder="輸入英文名字">
-                          <label for="frontEName" class="form-label small">英文名字</label>
+                          <label for="frontEName" class="form-label small text-primary">英文名字</label>
                         </div>
                         <div class="mb-2 form-floating">
                           <input type="tel" class="form-control" id="frontPhone" v-model="frontForm.phone" placeholder="輸入電話">
-                          <label for="frontPhone" class="form-label small">電話</label>
+                          <label for="frontPhone" class="form-label small text-primary">電話</label>
                         </div>
                         <div class="mb-2 form-floating">
                           <input type="email" class="form-control" id="frontEmail" v-model="frontForm.email" placeholder="輸入 Email">
-                          <label for="frontEmail" class="form-label small">Email</label>
+                          <label for="frontEmail" class="form-label small text-primary">Email</label>
                         </div>
                       </div>
                       <div v-show="!isFront">
                         <div class="mb-2 form-floating">
                           <input type="text" class="form-control" id="backCompany" v-model="backForm.company" placeholder="輸入公司名稱">
-                          <label for="backCompany" class="form-label small">公司名稱</label>
+                          <label for="backCompany" class="form-label small text-primary">公司名稱</label>
                         </div>
                         <div class="mb-2 form-floating">
                           <input type="text" class="form-control" id="backName" v-model="backForm.name" placeholder="輸入名字">
-                          <label for="backName" class="form-label small">名字</label>
+                          <label for="backName" class="form-label small text-primary">名字</label>
                         </div>
                         <div class="mb-2 form-floating">
                           <input type="text" class="form-control" id="backEName" v-model="backForm.e_name" placeholder="輸入英文名字">
-                          <label for="backEName" class="form-label small">英文名字</label>
+                          <label for="backEName" class="form-label small text-primary">英文名字</label>
                         </div>
                         <div class="mb-2 form-floating">
                           <input type="tel" class="form-control" id="backPhone" v-model="backForm.phone" placeholder="輸入電話">
-                          <label for="backPhone" class="form-label small">Phone</label>
+                          <label for="backPhone" class="form-label small text-primary">Mobile</label>
                         </div>
                         <div class="mb-2 form-floating">
                           <input type="email" class="form-control" id="backEmail" v-model="backForm.email" placeholder="輸入 Email">
-                          <label for="backEmail" class="form-label small">Email</label>
+                          <label for="backEmail" class="form-label small text-primary">Email</label>
                         </div>
                       </div>
                     </form>
@@ -133,7 +136,7 @@
                 </div>
               </div>
               <div class="d-flex flex-md-row flex-column align-items-md-center bg-gray-200 px-sm-5 px-4 py-3">
-                <span class="text-dark mb-md-0 mb-3"><span class="text-primary">規格 —</span> 90x54mm ／ 雙面一級卡 ／ 300 張</span>
+                <span class="text-dark mb-md-0 mb-3">規格 — 90x54mm ／ 雙面一級卡 ／ 300 張</span>
                 <a href="#" class="btn btn-primary ms-auto" @click.prevent="addToCart('-NCAtlm5RkX8T74O5ILR')">加入購物車</a>
               </div>
             </div>
@@ -142,11 +145,11 @@
       </div>
     </section>
     <div class="bg-light py-5">
-      <div class="container d-flex flex-wrap flex-md-nowrap justify-content-center align-items-center">
+      <div class="container d-flex flex-wrap flex-lg-nowrap justify-content-center align-items-center">
         <div class="d-flex align-items-center mb-md-0 mb-4">
           <div class="d-flex flex-column flex-lg-row align-items-center">
             <span class="material-symbols-outlined fs-1 me-3">backup</span>
-            <span>套用版型 / <span class="d-sm-inline d-block">上傳檔案</span></span>
+            <span>上傳檔案</span>
           </div>
           <span class="material-symbols-outlined text-secondary mx-2 mx-lg-4">
             arrow_forward_ios
@@ -512,11 +515,11 @@ export default {
         // phone
         ctx.font = '14px sans-serif'
         ctx.fillStyle = this.colorItem
-        ctx.fillText('Phone |', 145, 223)
+        ctx.fillText('Mobile |', 145, 223)
         ctx.save()
         ctx.font = '14px sans-serif'
         ctx.fillStyle = '#323232'
-        ctx.fillText(this[`${side}Form`].phone, 215, 223)
+        ctx.fillText(this[`${side}Form`].phone, 218, 223)
         ctx.save()
         // email icon
         ctx.font = '16px Material Symbols Outlined'
@@ -526,9 +529,9 @@ export default {
         // email
         ctx.font = '14px sans-serif'
         ctx.fillStyle = this.colorItem
-        ctx.fillText('Email  |', 145, 253)
+        ctx.fillText('Email   |', 147, 253)
         ctx.fillStyle = '#323232'
-        ctx.fillText(this[`${side}Form`].email, 215, 253)
+        ctx.fillText(this[`${side}Form`].email, 218, 253)
         ctx.save()
       }
 
@@ -620,13 +623,15 @@ export default {
     }
   },
   mounted () {
+    // 更新購物車數量
+    emitter.emit('cartCount')
     this.caluMode()
     this.isLoading = true
     setTimeout(() => {
       this.isLoading = false
       this.createCanvas('front')
       this.createCanvas('back')
-    }, 750)
+    }, 1000)
     // this.carousel = new Carousel(this.$refs.pCarousel, {
     //   interval: 2000
     // })

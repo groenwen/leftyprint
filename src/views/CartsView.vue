@@ -6,7 +6,6 @@
       <img src="@/assets/images/people03.svg" class="me-3" height="55" alt="">
       <span class="align-middle">購物車</span>
     </h1>
-    <v-form ref="form" v-slot="{ errors }" @submit="onSubmit">
       <div class="row g-4">
         <div class="col-lg-8 col-12">
           <div class="mb-3 border">
@@ -51,6 +50,7 @@
             </div>
             <div class="py-4 row justify-content-center">
               <div class="col-xl-6 col-sm-8 col-10">
+                <v-form class="py-4" ref="form" v-slot="{ errors }" @submit="onSubmit">
                   <div class="mb-2">
                     <label for="name" class="form-label fs-7">姓名</label>
                     <v-field name="姓名" id="name" type="text" rules="required" class="form-control" :class="{ 'is-invalid':errors['姓名'] }" v-model="order.user.name" placeholder="填入姓名" />
@@ -71,10 +71,14 @@
                     <v-field name="地址" id="address" type="text" rules="required" class="form-control" :class="{ 'is-invalid':errors['地址'] }" v-model="order.user.address" />
                     <error-message name="地址" class="invalid-feedback" />
                   </div>
-                  <div class="mb-2">
+                  <div class="mb-4">
                     <label for="message" class="form-label fs-7">訂單備註</label>
                     <v-field as="textarea" name="message" id="message" class="form-control" rows="3" v-model="order.message" />
                   </div>
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">結帳</button>
+                  </div>
+                </v-form>
               </div>
             </div>
           </div>
@@ -98,13 +102,9 @@
               <div>結帳總金額</div>
               <div class="fw-bolder text-danger">$ <span class="fs-5">{{ Math.round(final_total) }}</span></div>
             </div>
-            <div class="d-grid p-3">
-              <button type="submit" class="btn btn-primary">結帳</button>
-            </div>
           </div>
         </div>
       </div>
-    </v-form>
   </div>
 </template>
 <script>
