@@ -16,6 +16,10 @@ const routes = [
         component: () => import('../views/AboutView.vue')
       },
       {
+        path: 'days',
+        component: () => import('../views/DaysView.vue')
+      },
+      {
         path: 'products',
         component: () => import('../views/ProductsView.vue')
       },

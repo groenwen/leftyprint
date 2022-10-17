@@ -1,9 +1,15 @@
 <template>
   <headerView></headerView>
-  <router-view />
+  <div class="main">
+    <router-view />
+  </div>
   <footerView></footerView>
 </template>
-
+<style lang="scss">
+  .main {
+    min-height: 100vh;
+  }
+</style>
 <script>
 import headerView from '../components/HeaderTemp.vue'
 import footerView from '../components/FooterTemp.vue'

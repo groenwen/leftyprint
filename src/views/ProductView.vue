@@ -12,7 +12,7 @@
           </div>
           <div class="d-flex">
             <div class="d-flex align-items-center me-5">
-              <span class="material-symbols-outlined fs-1 text-primary me-3">calendar_month</span>
+              <span class="material-symbols-sharp fs-1 text-primary me-3">calendar_month</span>
               <div class="d-flex flex-column justify-content-center">
                 <span class="fs-8 lh-1 mb-2 text-secondary">工作天數</span>
                 <span class="lh-1">{{ currProd.description }}</span>
@@ -35,7 +35,7 @@
     </div>
   </div>
   <div class="container">
-    <p class="mb-4 text-secondary fs-5"><span class="material-symbols-outlined me-2 fs-3 align-text-bottom">style</span>選擇規格</p>
+    <p class="mb-4 text-secondary fs-5"><span class="material-symbols-sharp me-2 fs-3 align-text-bottom">style</span>選擇規格</p>
     <div class="mb-4">
       <span class="me-3 mb-1 fs-7 text-secondary">尺寸&emsp;&nbsp;</span>
       <a href="#"
@@ -100,7 +100,7 @@
           <div class="col-auto">
             <!-- <label for="formFile" class="col-form-label" >上傳檔案</label> -->
             <p class="mb-md-0 mb-2 text-secondary">
-              <span class="material-symbols-outlined me-2 fs-3 align-text-bottom">cloud_upload</span>上傳檔案
+              <span class="material-symbols-sharp me-2 fs-3 align-text-bottom">cloud_upload</span>上傳檔案
             </p>
           </div>
           <div class="col-auto">
@@ -115,7 +115,7 @@
     </div>
     <div class="mb-5 text-end">
       <a href="#" class="btn btn-primary" @click.prevent="addToCart()" :class="{'disabled' : this.file.name === undefined}">
-        <span class="material-symbols-outlined align-text-bottom">shopping_cart</span>
+        <span class="material-symbols-sharp align-text-bottom">shopping_cart</span>
         加入購物車
       </a>
     </div>

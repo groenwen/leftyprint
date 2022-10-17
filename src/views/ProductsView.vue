@@ -9,7 +9,7 @@
       </h1>
       <div>
         <span class="me-3 text-primary small">FREE SHIPPING</span>
-        <span class="material-symbols-outlined text-primary fs-1 align-middle me-3">local_shipping</span>
+        <span class="material-symbols-sharp text-primary fs-1 align-middle me-3">local_shipping</span>
       </div>
     </div>
 

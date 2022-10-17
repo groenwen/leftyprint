@@ -145,33 +145,33 @@
       </div>
     </section>
     <div class="bg-light py-5">
-      <div class="container d-flex flex-wrap flex-lg-nowrap justify-content-center align-items-center">
+      <div class="container d-flex flex-md-row flex-column justify-content-center align-items-center">
         <div class="d-flex align-items-center mb-md-0 mb-4">
           <div class="d-flex flex-column flex-lg-row align-items-center">
-            <span class="material-symbols-outlined fs-1 me-3">backup</span>
+            <span class="material-symbols-outlined fs-2 me-3 p-3 bg-white rounded-circle">backup</span>
             <span>上傳檔案</span>
           </div>
-          <span class="material-symbols-outlined text-secondary mx-2 mx-lg-4">
-            arrow_forward_ios
+          <span class="material-symbols-sharp text-secondary mx-2 mx-lg-4">
+            arrow_right
           </span>
           <div class="d-flex flex-column flex-lg-row align-items-center">
-            <span class="material-symbols-outlined fs-1 me-3">style</span>
+            <span class="material-symbols-outlined fs-2 me-3 p-3 bg-white rounded-circle">style</span>
             <span>選擇材質數量</span>
           </div>
+          <span class="material-symbols-sharp text-secondary mx-2 mx-lg-4">
+            arrow_right
+          </span>
         </div>
         <div class="d-flex align-items-center">
-          <span class="material-symbols-outlined mx-2 mx-lg-4">
-            arrow_forward_ios
-          </span>
           <div class="d-flex flex-column flex-lg-row align-items-center">
-            <span class="material-symbols-outlined fs-1 me-3">shopping_cart</span>
+            <span class="material-symbols-outlined fs-2 me-3 p-3 bg-white rounded-circle">shopping_cart</span>
             <span>加入購物車</span>
           </div>
-          <span class="material-symbols-outlined mx-2 mx-lg-4">
-            arrow_forward_ios
+          <span class="material-symbols-sharp text-secondary mx-2 mx-lg-4">
+            arrow_right
           </span>
           <div class="d-flex flex-column flex-lg-row align-items-center">
-            <span class="material-symbols-outlined fs-1 me-3">local_shipping</span>
+            <span class="material-symbols-outlined fs-2 me-3 p-3 bg-white rounded-circle">local_shipping</span>
             <span>宅配到府</span>
           </div>
         </div>
@@ -182,7 +182,7 @@
         <div class="d-flex align-items-end mb-5">
           <img class="me-3" src="@/assets/images/people02.svg" height="80" alt="">
           <div>
-            <span class="d-inline-block mb-2 px-3 py-2 text-white lh-1 bg-primary rounded-pill position-relative">\ Business /</span>
+            <span class="d-inline-block mb-2 px-3 py-2 text-white lh-1 bg-primary rounded-pill position-relative">Business</span>
             <h2 class="mb-0 fw-bolder">專業形象</h2>
           </div>
         </div>
@@ -232,13 +232,13 @@
         </div>
       </div>
     </section>
-    <section style="background:linear-gradient(120deg, #F0F3FA 55%, rgba(240, 243, 250, 0.1) 75%, rgba(240, 243, 250, 0.5) 99%), url(https://images.unsplash.com/photo-1561015314-6bd8c1e875ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80) right bottom 30% / auto 150% no-repeat;">
+    <section class="bg-mode">
       <div class="container">
         <div class="d-flex flex-lg-row flex-column align-items-lg-center px-lg-0 px-3">
           <div class="me-lg-7 mb-lg-0 mb-3">
             <h2 class="mb-3 fw-bolder">特殊尺寸</h2>
             <p>輸入欲印製的尺寸，取得模數後，<br>
-              由專人為你報價 <span class="material-symbols-outlined text-primary me-2 align-middle">drafts</span><a href="mailto:yuwen7005@gmail.com" class="text-link">yuwen7005@gmail.com</a>
+              由專人為你報價 <span class="material-symbols-sharp text-primary me-2 align-middle">drafts</span><a href="mailto:yuwen7005@gmail.com" class="text-link">yuwen7005@gmail.com</a>
             </p>
             <p class="small">一模 92mm X 56mm (名片大小)</p>
           </div>
@@ -273,7 +273,7 @@
         <div class="d-flex align-items-end mb-5">
           <img class="me-3" src="@/assets/images/people03.svg" height="80" alt="">
           <div>
-            <p class="d-inline-block mb-2 px-3 py-2 text-white lh-1 bg-primary rounded-pill position-relative">\ Life /</p>
+            <p class="d-inline-block mb-2 px-3 py-2 text-white lh-1 bg-primary rounded-pill position-relative">Life</p>
             <h2 class="mb-0 fw-bolder">生活印象</h2>
           </div>
         </div>
@@ -368,6 +368,13 @@
     height: 30px;
     border-color: #E5EBFD !important;
   }
+}
+.bg-mode {
+  @include media-breakpoint-up(lg) {
+    background:
+      linear-gradient(100deg, #F0F3FA 55%, rgba(240, 243, 250, 0.1) 90%, rgba(240, 243, 250, 0.3) 100%), url("https://images.unsplash.com/photo-1561015314-6bd8c1e875ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530&q=80") right 0% bottom 30%/auto 170% no-repeat, #F0F3FA;
+  }
+  background: #F0F3FA;
 }
 </style>
 <script>

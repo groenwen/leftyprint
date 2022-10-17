@@ -8,10 +8,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto">
-            <router-link to="/about" class="nav-link">關於 Print</router-link>
-            <router-link to="/products" class="nav-link">所有產品</router-link>
-            <router-link to="/carts" class="nav-link position-relative pe-1">
-              <span class="material-symbols-outlined">shopping_cart</span>
+            <router-link to="/about" class="nav-link" :class="{'active':this.$route.path === '/about'}">關於 Print</router-link>
+            <router-link to="/products" class="nav-link" :class="{'active':this.$route.path === '/products'}">所有產品</router-link>
+            <router-link to="/days" class="nav-link" :class="{'active':this.$route.path === '/days'}"><span class="material-symbols-sharp me-1 align-middle">calendar_month</span>印刷工作天</router-link>
+            <router-link to="/carts" class="nav-link position-relative pe-1" :class="{'active':this.$route.path === '/carts'}">
+              <span class="material-symbols-sharp">shopping_cart</span>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{carts?.length}}
                 <span class="visually-hidden">unread messages</span>
@@ -74,6 +75,7 @@ export default {
     emitter.on('cartCount', () => {
       this.getCarts()
     })
+    console.log(this.$route.path)
   }
 }
 </script>

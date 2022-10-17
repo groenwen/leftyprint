@@ -3,12 +3,19 @@
   letter-spacing: .1em;
   color: #484A4C;
 }
-.material-symbols-outlined {
+.material-symbols-sharp {
   font-variation-settings:
   'FILL' 1,
-  'wght' 300,
+  'wght' 400,
   'GRAD' 0,
-  'opsz' 40
+  'opsz' 48
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }
 
 /* Chrome */

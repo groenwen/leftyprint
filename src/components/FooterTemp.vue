@@ -14,10 +14,10 @@
           <router-link to="/products" class="me-5 text-dark">所有產品</router-link>
           <ul class="list-unstyled">
             <li>
-              <span class="material-symbols-outlined align-middle fs-6 me-2">headset_mic</span>( 02 ) 2222 - 2222
+              <span class="material-symbols-sharp align-middle fs-6 me-2">headset_mic</span>( 02 ) 2222 - 2222
             </li>
             <li>
-              <span class="material-symbols-outlined align-middle fs-6 me-2">drafts</span>yuwen7005@gmail.com
+              <span class="material-symbols-sharp align-middle fs-6 me-2">drafts</span>yuwen7005@gmail.com
             </li>
           </ul>
         </div>
